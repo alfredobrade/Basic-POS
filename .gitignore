@@ -1,3 +1,7 @@
 ﻿/.vs/BasicPointOfSale
 /BasicPointOfSale/obj
 /BasicPointOfSale/appsettings.json
+/BasicPointOfSale/bin/Debug/net6.0
+/PointOfSale.BL/obj
+/PointOfSale.DAL/obj
+/PointOfSale.Models/obj
