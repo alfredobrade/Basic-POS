@@ -29,6 +29,9 @@ namespace PointOfSale.Models
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
+        public int Stock { get; set; } = 0;
+        public int? StockMin { get; set; }
+
         
         public IEnumerable<Suplier>? Supliers { get; set; }
 
