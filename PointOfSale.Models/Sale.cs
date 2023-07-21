@@ -8,5 +8,32 @@ namespace PointOfSale.Models
 {
     public class Sale
     {
+        public long Id { get; set; }
+        public DateTime DateTime { get; set; }
+        //public int? CustomerId { get; set; }
+        //public Customer? Customer { get; set; }
+        public string CustomerName { get; set; }
+
+        public decimal Cost { get; set; }
+        public decimal Price { get; set; }
+
+        public int PayMethodId { get; set; }
+        public PayMethod PayMethod { get; set; }
+        //TODO: sale
+
+
+
+
+
+
+
+
+
+
+
+        public ICollection<SaleProduct> SaleProducts { get; set; }
+
+        public int UserId { get; set; }
+        public int BusinessId { get; set; }
     }
 }
