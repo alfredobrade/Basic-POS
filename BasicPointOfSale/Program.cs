@@ -1,7 +1,12 @@
+using BasicPointOfSale.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.DependencyInyection(builder.Configuration); //para inyectar las dependencias desde otra clase
+
 
 var app = builder.Build();
 

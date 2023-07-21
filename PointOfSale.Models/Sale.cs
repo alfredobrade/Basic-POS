@@ -14,8 +14,8 @@ namespace PointOfSale.Models
         //public Customer? Customer { get; set; }
         public string CustomerName { get; set; }
 
-        public decimal Cost { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Cost { get; set; }
+        public decimal? Price { get; set; }
 
         public int PayMethodId { get; set; }
         public PayMethod PayMethod { get; set; }
