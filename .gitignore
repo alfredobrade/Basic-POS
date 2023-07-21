@@ -5,3 +5,4 @@
 /PointOfSale.BL/obj
 /PointOfSale.DAL/obj
 /PointOfSale.Models/obj
+/BasicPointOfSale/appsettings.Development.json
