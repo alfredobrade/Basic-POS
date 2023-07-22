@@ -1,0 +1,81 @@
+﻿@model List<PointOfSale.Models.BusinessUnit>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BusinessUnits</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="text-center">
+        
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    @if (Model.Count() > 0)
+    {
+        <input />
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <th width="25%"><a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index" asp-route-BusinessUnitId="@item.Id">@item.Name</a></th>
+
+                        @*<th class="text-center">
+                            <div width="30" class="w-75 btn-group" role="group">
+                                <a asp-controller="Vehicle" asp-action="Edit" asp-route-VehicleId="@item.Id" class="btn btn-primary mx-2">
+                                    Editar
+                                </a>
+                                <a asp-controller="Vehicle" asp-action="Delete" asp-route-VehicleId="@item.Id" class="btn btn-danger mx-2">
+                                    Eliminar
+                                </a>
+                            </div>
+
+
+                        </th>*@
+
+                    </tr>
+                    @*<tr>
+            <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+            <th>
+            <div class="w-75 btn-group" role="group">
+            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+            </div>
+            </th>
+
+            </tr>*@
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay elementos</p>
+    }
+    <div class="row mt-5 d-flex justify-content-center">
+        <a class="btn btn-info" asp-controller="BusinessUnit" asp-action="NewBusinessUnit">NewBusinessUnit</a>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PointOfSale.BL.IServices;
+using PointOfSale.Models;
 using System.ComponentModel;
 
 namespace BasicPointOfSale.Controllers
@@ -15,11 +16,11 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: ProductController
-        public async Task<ActionResult> Index(int BusinessId)
+        public async Task<ActionResult> Index(int BusinessUnitId)
         {
             try
             {
-                var list = await _productService.GetList(BusinessId);
+                var list = await _productService.GetList(BusinessUnitId);
                 return View(list);
             }
             catch (Exception)
@@ -36,19 +37,24 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: ProductController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> NewProduct(int BusinessUnitId)
         {
-            return View();
+            var product = new Product()
+            {
+                BusinessId = BusinessUnitId
+            };
+            return View(product);
         }
 
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> NewProduct(Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await _productService.Create(product);
+                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
             }
             catch
             {
@@ -57,44 +63,68 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long ProductId)
         {
-            return View();
+            try
+            {
+                var product = await _productService.GetProduct(ProductId);
+                return View(product);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (product != null) await _productService.Edit(product);
+
+                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
             }
             catch
             {
-                return View();
+                return View(product);
             }
         }
 
         // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long ProductId)
         {
-            return View();
+            try
+            {
+                var product = await _productService.GetProduct(ProductId);
+                return View(product);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                if (product.Id != 0) await _productService.Delete(product);
+
+                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
             }
             catch
             {
-                return View();
+                return View(product);
+
             }
         }
     }

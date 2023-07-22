@@ -1,17 +1,38 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PointOfSale.DAL.Context;
 using PointOfSale.DAL.IRepository;
 using PointOfSale.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BasicPointOfSale.Controllers
 {
     public class BusinessUnitController : Controller
     {
-        private readonly IGenericRepository<BusinessUnit> _context;
-        // GET: BusinessUnitController
-        public ActionResult Index()
+        private readonly IGenericRepository<BusinessUnit> _repository;
+        private readonly ILogger<BusinessUnit> _logger;
+        private readonly POSContext _context;
+        public BusinessUnitController(ILogger<BusinessUnit> logger, IGenericRepository<BusinessUnit> repository,  POSContext context)
         {
-            return View();
+            _logger = logger;
+            _context = context;
+            _repository = repository;
+        }
+        // GET: BusinessUnitController
+        public async Task<IActionResult> Index()
+        {
+            try
+            {
+
+                var business = await _context.BusinessUnits.ToListAsync();
+                return View(business);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: BusinessUnitController/Details/5
@@ -33,7 +54,7 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                await _context.Create(model);
+                await _repository.Create(model);
                 return RedirectToAction("Index","Home");
             }
             catch

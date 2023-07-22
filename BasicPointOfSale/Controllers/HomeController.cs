@@ -16,7 +16,7 @@ namespace BasicPointOfSale.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int BusinessUnitId)
         {
             try
             {

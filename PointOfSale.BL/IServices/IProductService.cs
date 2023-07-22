@@ -10,5 +10,9 @@ namespace PointOfSale.BL.IServices
     public interface IProductService
     {
         Task<IEnumerable<Product>> GetList(int BusinessId);
+        Task<Product> GetProduct(long Id);
+        Task<Product> Create(Product product);
+        Task<bool> Edit(Product product);
+        Task<bool> Delete(Product product);
     }
 }
