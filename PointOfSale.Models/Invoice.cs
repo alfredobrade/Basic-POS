@@ -14,5 +14,9 @@ namespace PointOfSale.Models
         public int POSNumber { get; set; }
         public int InvoiceNumber { get; set; }
         public decimal Amount { get; set; }
+
+        public int SaleId { get; set; }
+        public int BusinessId { get; set; }
+
     }
 }

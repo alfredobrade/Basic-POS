@@ -15,5 +15,8 @@ namespace PointOfSale.Models
         public Supplier? Supplier { get; set; }
 
         public ICollection<PurchaseProduct>? PurchaseProducts { get; set;}
+
+        public int BusinessId { get; set; }
+
     }
 }

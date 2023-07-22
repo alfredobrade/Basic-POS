@@ -12,6 +12,6 @@ namespace PointOfSale.Models
         public string Name { get; set; }
 
 
-        public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<Transaction>? Transactions { get; set; }
     }
 }

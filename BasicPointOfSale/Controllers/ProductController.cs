@@ -1,14 +1,32 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PointOfSale.BL.IServices;
+using System.ComponentModel;
 
 namespace BasicPointOfSale.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
         {
-            return View();
+            _productService = productService;
+        }
+
+        // GET: ProductController
+        public async Task<ActionResult> Index(int BusinessId)
+        {
+            try
+            {
+                var list = await _productService.GetList(BusinessId);
+                return View(list);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: ProductController/Details/5

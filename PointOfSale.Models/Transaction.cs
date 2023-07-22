@@ -18,6 +18,10 @@ namespace PointOfSale.Models
 
 
         public int OperationTypeId { get; set; }
-        public OperationType OperationType { get; set; }
+        public OperationType? OperationType { get; set; }
+
+
+        public int UserId { get; set; }
+        public int BusinessId { get; set; }
     }
 }

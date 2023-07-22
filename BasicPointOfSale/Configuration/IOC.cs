@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using PointOfSale.BL.IServices;
+using PointOfSale.BL.Services;
 using PointOfSale.DAL.Context;
 using PointOfSale.DAL.IRepository;
 using PointOfSale.DAL.Repository;
@@ -25,9 +26,9 @@ namespace BasicPointOfSale.Configuration
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            //services.AddScoped<IVentaRepository, VentaRepository>();
-            //services.AddScoped<ICorreoService, CorreoService>();
-            //services.AddScoped<IFirebaseService, FirebaseService>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISaleService, SaleService>();
             //services.AddScoped<IUtilidadesService, UtilidadesService>();
             //services.AddScoped<IRoleService, RoleService>();
             //services.AddScoped<IUsuarioService, UsuarioService>();

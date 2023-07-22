@@ -1,5 +1,7 @@
 ﻿using BasicPointOfSale.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PointOfSale.DAL.Context;
 using System.Diagnostics;
 
 namespace BasicPointOfSale.Controllers
@@ -7,15 +9,25 @@ namespace BasicPointOfSale.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly POSContext _context;
+        public HomeController(ILogger<HomeController> logger, POSContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                var business = await _context.BusinessUnits.ToListAsync();
+                return View(business);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IActionResult Privacy()

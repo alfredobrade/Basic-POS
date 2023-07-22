@@ -35,7 +35,7 @@ namespace PointOfSale.DAL.Repository
             }
         }
 
-        public async Task<IQueryable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<IEnumerable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
         {
             try
             {

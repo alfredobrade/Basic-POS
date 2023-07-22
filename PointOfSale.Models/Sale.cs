@@ -17,8 +17,11 @@ namespace PointOfSale.Models
         public decimal? Cost { get; set; }
         public decimal? Price { get; set; }
 
-        public int PayMethodId { get; set; }
-        public PayMethod PayMethod { get; set; }
+        public int? PayMethodId { get; set; }
+        public PayMethod? PayMethod { get; set; }
+
+        public int? SalesPersonId { get; set; }
+        public SalesPerson? SalesPerson { get; set; }
         //TODO: sale
 
 
