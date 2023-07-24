@@ -57,7 +57,7 @@ namespace PointOfSale.BL.Services
 
         }
 
-        public async Task<Sale> NewSale(int BusinessUnitId)
+        public async Task<Sale> NewSale(int BusinessUnitId) //TODO: agregar el nombre de customer
         {
             try
             {
@@ -92,6 +92,51 @@ namespace PointOfSale.BL.Services
             catch (Exception)
             {
                 return false;
+                throw;
+            }
+        }
+
+        //TODO: metodo para traer los articulos cargados y mostrar el monto de la venta antes de vender
+        //la idea es que el cliente pueda ver el monto y eliminar productos o modif la cantidad
+
+        //TODO: metodo para eliminar productos y otro para modificar cantidad o precio
+
+
+        public async Task<Sale> CloseSale(int saleId)
+        {
+            try
+            {
+                var sale = await _repository.Get(s => s.Id == saleId);
+                sale.DateTime = DateTime.Now;
+                //otros
+
+                var saleProduct = await _repository.GetSaleProducts(saleId);
+                foreach (var item in saleProduct)
+                {
+                    sale.Cost += item.Cost;
+                    sale.Price += item.Price;
+                }
+
+                var result = await _repository.UpdateSale(sale);
+                return sale;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> CancelSale(int saleId)
+        {
+            try
+            {
+                var result = await _repository.DeleteSale(saleId);
+                return result;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

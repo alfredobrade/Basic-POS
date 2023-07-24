@@ -11,6 +11,8 @@ namespace PointOfSale.BL.IServices
     {
         Task<bool> Sell(string customer, List<long> products);
         Task<Sale> NewSale(int BusinessUnitId);
-
+        Task<bool> AddProduct(int saleId, int productId, int quantity);
+        Task<Sale> CloseSale(int saleId);
+        Task<bool> CancelSale(int saleId);
     }
 }
