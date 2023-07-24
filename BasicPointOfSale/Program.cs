@@ -1,12 +1,24 @@
 using BasicPointOfSale.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//services add session
+builder.Services.AddSession();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.DependencyInyection(builder.Configuration); //para inyectar las dependencias desde otra clase
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Access/Index";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        option.AccessDeniedPath = "/Home/Privacy";
 
+    });
 
 var app = builder.Build();
 
@@ -23,7 +35,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+//use session
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

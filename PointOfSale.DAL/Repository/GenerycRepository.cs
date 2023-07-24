@@ -44,7 +44,7 @@ namespace PointOfSale.DAL.Repository
                     _context.Set<TEntity>().Where(filter);
                 await _context.SaveChangesAsync(); //TODO: esto esta mal
 
-                return queryEntity; //.AsQueryable()
+                return queryEntity.ToList(); //.AsQueryable()
             }
             catch (Exception)
             {

@@ -15,13 +15,13 @@
 </head>
 <body>
     <div class="text-center">
-        
+
         <h1 class="display-4">Welcome</h1>
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
     @if (Model.Count() > 0)
     {
-        <input />
+        
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -35,20 +35,24 @@
                 {
 
                     <tr>
-                        <th width="25%"><a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index" asp-route-BusinessUnitId="@item.Id">@item.Name</a></th>
+
+
+                        <th width="25%"><a class="btn btn-outline-secondary" asp-controller="BusinessUnit" asp-action="SelectBusiness" asp-route-BusinessUnitId="@item.Id">@item.Name</a></th>
+
+
 
                         @*<th class="text-center">
-                            <div width="30" class="w-75 btn-group" role="group">
-                                <a asp-controller="Vehicle" asp-action="Edit" asp-route-VehicleId="@item.Id" class="btn btn-primary mx-2">
-                                    Editar
-                                </a>
-                                <a asp-controller="Vehicle" asp-action="Delete" asp-route-VehicleId="@item.Id" class="btn btn-danger mx-2">
-                                    Eliminar
-                                </a>
-                            </div>
+                <div width="30" class="w-75 btn-group" role="group">
+                <a asp-controller="Vehicle" asp-action="Edit" asp-route-VehicleId="@item.Id" class="btn btn-primary mx-2">
+                Editar
+                </a>
+                <a asp-controller="Vehicle" asp-action="Delete" asp-route-VehicleId="@item.Id" class="btn btn-danger mx-2">
+                Eliminar
+                </a>
+                </div>
 
 
-                        </th>*@
+                </th>*@
 
                     </tr>
                     @*<tr>

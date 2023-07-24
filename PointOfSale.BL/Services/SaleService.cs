@@ -56,5 +56,44 @@ namespace PointOfSale.BL.Services
             catch (Exception) { throw; }
 
         }
+
+        public async Task<Sale> NewSale(int BusinessUnitId)
+        {
+            try
+            {
+                return await _repository.CreateNewSale(BusinessUnitId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> AddProduct(int saleId, int productId, int quantity)
+        {
+            try
+            {
+                var product = await _repository.GetProductById(productId);
+
+                var saleProduct = new SaleProduct()
+                {
+                    SaleId = saleId,
+                    ProductId = productId,
+                    Quantity = quantity,
+                    Cost = product.Cost,
+                    Price = product.Price,
+                };
+
+                await _repository.AddSaleProduct(saleProduct);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

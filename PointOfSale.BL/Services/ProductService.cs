@@ -18,7 +18,7 @@ namespace PointOfSale.BL.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Product>> GetList(int BusinessId)
+        public async Task<IEnumerable<Product>> GetList(int? BusinessId)
         {
             try
             {

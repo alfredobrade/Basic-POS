@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BasicPointOfSale.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PointOfSale.BL.IServices;
 using PointOfSale.Models;
@@ -16,12 +17,20 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: ProductController
-        public async Task<ActionResult> Index(int BusinessUnitId)
+        public async Task<ActionResult> Index()
         {
             try
             {
+                var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+
                 var list = await _productService.GetList(BusinessUnitId);
-                return View(list);
+                var model = new ProductListVM()
+                {
+                    BusinessUnitId = (int)BusinessUnitId,
+                    Products = list
+                };
+
+                return View(model);
             }
             catch (Exception)
             {
@@ -54,7 +63,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var result = await _productService.Create(product);
-                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
+                return RedirectToAction("Index", "Product");
             }
             catch
             {
@@ -86,7 +95,7 @@ namespace BasicPointOfSale.Controllers
             {
                 if (product != null) await _productService.Edit(product);
 
-                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
+                return RedirectToAction("Index", "Product");
             }
             catch
             {
@@ -119,7 +128,7 @@ namespace BasicPointOfSale.Controllers
 
                 if (product.Id != 0) await _productService.Delete(product);
 
-                return RedirectToAction("Index", "Product", new { BusinessUnitId = product.BusinessId });
+                return RedirectToAction("Index", "Product");
             }
             catch
             {

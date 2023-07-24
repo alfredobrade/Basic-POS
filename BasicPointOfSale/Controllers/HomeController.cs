@@ -16,11 +16,13 @@ namespace BasicPointOfSale.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int BusinessUnitId)
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var business = await _context.BusinessUnits.ToListAsync();
+                int? BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+
+                var business = await _context.BusinessUnits.Where(b => b.Id == BusinessUnitId).FirstOrDefaultAsync(); //TODO: Dashboard 
                 return View(business);
             }
             catch (Exception)

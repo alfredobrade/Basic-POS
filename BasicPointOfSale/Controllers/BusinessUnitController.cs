@@ -12,7 +12,7 @@ namespace BasicPointOfSale.Controllers
     {
         private readonly IGenericRepository<BusinessUnit> _repository;
         private readonly ILogger<BusinessUnit> _logger;
-        private readonly POSContext _context;
+        private readonly POSContext _context; //TODO: que no venga de context
         public BusinessUnitController(ILogger<BusinessUnit> logger, IGenericRepository<BusinessUnit> repository,  POSContext context)
         {
             _logger = logger;
@@ -24,9 +24,44 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                //TODO: Agregar logica de usuario logueado
 
                 var business = await _context.BusinessUnits.ToListAsync();
                 return View(business);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> SelectBusiness(int BusinessUnitId)
+        {
+            try
+            {
+                // Guardar el NegocioId en la sesión
+                HttpContext.Session.SetInt32("BusinessUnitId", BusinessUnitId); //TODO: manejar aca para que no venga vacio
+
+                // Redireccionar a la vista que desees mostrar después de seleccionar el negocio
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> CloseBusiness()
+        {
+            try
+            {
+                // Guardar el NegocioId en la sesión
+                HttpContext.Session.Remove("BusinessUnitId");
+
+                // Redireccionar a la vista que desees mostrar después de seleccionar el negocio
+                return RedirectToAction("Index", "BusinessUnit");
             }
             catch (Exception)
             {
@@ -55,7 +90,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 await _repository.Create(model);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","BusinessUnit");
             }
             catch
             {

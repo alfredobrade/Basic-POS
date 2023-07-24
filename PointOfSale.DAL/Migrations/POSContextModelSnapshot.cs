@@ -334,16 +334,19 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PayMethodId")
+                    b.Property<bool?>("IsSaleCompleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("PayMethodId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("SalesPersonId")
+                    b.Property<int?>("SalesPersonId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -365,6 +368,18 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool?>("IsSaleCompleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("SaleId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -384,7 +399,12 @@ namespace PointOfSale.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("SalesPersons");
                 });
@@ -524,10 +544,9 @@ namespace PointOfSale.DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Role")
+                    b.Property<int?>("Role")
                         .HasColumnType("integer");
 
                     b.Property<int?>("YakaAgent")
@@ -629,15 +648,11 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasOne("PointOfSale.Models.PayMethod", "PayMethod")
                         .WithMany()
-                        .HasForeignKey("PayMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PayMethodId");
 
                     b.HasOne("PointOfSale.Models.SalesPerson", "SalesPerson")
                         .WithMany()
-                        .HasForeignKey("SalesPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalesPersonId");
 
                     b.Navigation("PayMethod");
 
@@ -661,6 +676,17 @@ namespace PointOfSale.DAL.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("PointOfSale.Models.SalesPerson", b =>
+                {
+                    b.HasOne("PointOfSale.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Transaction", b =>

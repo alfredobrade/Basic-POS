@@ -24,19 +24,12 @@ namespace PointOfSale.Models
         public SalesPerson? SalesPerson { get; set; }
         //TODO: sale
 
-
-
-
-
-
-
-
-
+        public bool? IsSaleCompleted { get; set; } = false;
 
 
         public ICollection<SaleProduct> SaleProducts { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public int BusinessId { get; set; }
     }
 }

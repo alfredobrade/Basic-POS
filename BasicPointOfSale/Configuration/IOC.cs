@@ -29,7 +29,7 @@ namespace BasicPointOfSale.Configuration
             services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISaleService, SaleService>();
-            //services.AddScoped<IUtilidadesService, UtilidadesService>();
+            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IRoleService, RoleService>();
             //services.AddScoped<IUsuarioService, UsuarioService>();
 
