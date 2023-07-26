@@ -1,10 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BasicPointOfSale.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PointOfSale.BL.IServices;
+using PointOfSale.BL.Services;
+using PointOfSale.Models;
 
 namespace BasicPointOfSale.Controllers
 {
     public class SaleController : Controller
     {
+        private readonly ISaleService _service;
+        private readonly IProductService _productService;
+        private readonly ISaleProductService _spService;
+        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService)
+        {
+            _service = service;
+            _spService = spService;
+            _productService = productService;
+        }
         // GET: SaleController
         public ActionResult Index()
         {
@@ -18,40 +31,59 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: SaleController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> NewSale()
         {
-            return View();
+            try
+            {
+                var BusinessUnitId = (int)HttpContext.Session.GetInt32("BusinessUnitId"); //TODO: manejar el nullable
+                var model = new SaleVM()
+                {
+                    BusinessUnitId = BusinessUnitId,
+                };
+
+                var openSale = await _service.GetOpenSale(BusinessUnitId);
+                if (openSale != null)
+                {
+                    model.Sale = openSale;
+                    model.Products = await _service.SaleDetail(openSale.Id);
+                    return View(model);
+                }
+
+                var newSale = await _service.NewSale(BusinessUnitId);
+                model.Sale = newSale;
+                model.Products = new List<SaleProduct>();
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: SaleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> NewSale(SaleVM saleVM)  //este activa solo en el submit
         {
             try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                var sale = await _service.CloseSale(saleVM.Sale.Id);
+                var saleDetail = await _service.SaleDetail(sale.Id);
+                foreach (var item in saleDetail)
+                {
+                    var product = await _productService.GetProduct(item.ProductId);
+                    product.Stock = item.Product.Stock - item.Quantity;
+                    await _productService.EditProduct(product);
+                }
+                //close sale
+                //saledetail - saleId
+                //foreach
+                //GetProduct - product.Id
+                //EditProduct stock - product.Id
 
-        // GET: SaleController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: SaleController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "SaleHistory");
             }
             catch
             {
@@ -60,24 +92,162 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: SaleController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Cancel(long saleId)
         {
-            return View();
+            try
+            {
+                var sale = await _service.GetSaleById(saleId);
+                return View(sale);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: SaleController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Cancel(Sale sale)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await _service.CancelSale(sale.Id);
+
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
-                return View();
+                return View(sale);
             }
         }
+
+        public async Task<ActionResult> AddItem(long SaleId, long ProductId)
+        {
+            try
+            {
+                var model = new SaleProductVM()
+                {
+                    SaleId = SaleId,
+                    Product = await _productService.GetProduct(ProductId),
+                    Quantity = 1
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddItem(SaleProductVM model)
+        {
+            try
+            {
+                var result = await _service.AddProduct(model.SaleId, model.Product.Id, (int)model.Quantity);
+
+                //TODO: agregar metodo para pasarle el precio
+                
+
+                return RedirectToAction("NewSale", "Sale");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        // GET: SaleController/Edit/5
+        public async Task<ActionResult> EditItem(long SaleId, long ProductId)
+        {
+            try
+            {
+                var saleProduct = await _spService.GetSaleProduct(SaleId, ProductId);
+                var model = new SaleProductVM()
+                {
+                    SaleId = SaleId,
+                    Product = await _productService.GetProduct(ProductId),
+                    Quantity = saleProduct.Quantity
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        // POST: SaleController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditItem(SaleProductVM model)
+        {
+            try
+            {
+                var saleProduct = new SaleProduct()
+                {
+                    SaleId = model.SaleId,
+                    ProductId = model.Product.Id,
+                    Quantity = model.Quantity,
+                    Cost = model.Product.Cost,
+                    Price = model.Product.Price
+                };
+                await _spService.UpdateSaleProduct(saleProduct);
+                return RedirectToAction("NewSale", "Sale"); 
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+
+        // GET: SaleController/Delete/5
+        public async Task<ActionResult> DeleteItem(long SaleId, long ProductId)
+        {
+            try
+            {
+                var saleProduct = await _spService.GetSaleProduct(SaleId, ProductId);
+                var model = new SaleProductVM()
+                {
+                    SaleId = SaleId,
+                    Product = await _productService.GetProduct(ProductId),
+                    Quantity = saleProduct.Quantity
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        // POST: SaleController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteItem(SaleProductVM model)
+        {
+            try
+            {
+                
+                await _spService.DeleteSaleProduct(model.SaleId, model.Product.Id);
+                return RedirectToAction("NewSale", "Sale");
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+
+
     }
 }

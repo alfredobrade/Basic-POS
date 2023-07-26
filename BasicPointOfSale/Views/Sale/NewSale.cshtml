@@ -1,0 +1,152 @@
+﻿@model SaleVM
+
+@{
+    ViewData["Title"] = "NewSale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="NewSale">
+    <input type="hidden" asp-for="BusinessUnitId" />
+    <input type="hidden" asp-for="Sale.Id" />
+
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Venta</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Sale.DateTime" class="form-label">Fecha @DateTime.Now</label>
+                    @*<input asp-for="Sale.DateTime" class="form-control" />*@
+                    <span asp-validation-for="Sale.DateTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Sale.CustomerName" class="form-label">Cliente</label>
+                    <input asp-for="Sale.CustomerName" class="form-control" />
+                    <span asp-validation-for="Sale.CustomerName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Sale.Cost" class="form-label">Cost @Model.Sale.Cost</label>
+                    @*<input asp-for="Sale.Cost" class="form-control" />
+                    <span asp-validation-for="Sale.Cost" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Sale.Price" class="form-label">Price @Model.Sale.Price</label>
+                    @*<input asp-for="Sale.Price" class="form-control" />
+                    <span asp-validation-for="Sale.Price" class="text-danger"></span>*@
+                </div>
+            </div>
+            @*<div class="row">
+            <div class="col-md-6">
+            <label asp-for="Sale.PayMet" class="form-label">stock</label>
+            <input asp-for="Stock" class="form-control" />
+            <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            </div>*@
+            @*<div class="row">
+            <div class="col-md-6">
+            <label asp-for="StockMin" class="form-label">StockMin</label>
+            <input asp-for="StockMin" class="form-control" />
+            <span asp-validation-for="StockMin" class="text-danger"></span>
+            </div>
+            </div>*@
+
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-outline-success">Vender</button>
+                <a asp-controller="Sale" asp-action="Cancel" asp-route-SaleId="@Model.Sale.Id" class="btn btn-outline-danger">Cancelar</a>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
+<div class="container mt-3">
+
+    <a asp-controller="Product" asp-action="SearchProduct" asp-route-SaleId="@Model.Sale.Id" class="btn btn-primary">AddProduct</a>
+    @if (Model.Products.Count() > 0)
+
+
+
+    {
+        <table class="table table-bordered table-striped mt-2" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    @*<th>Marca</th>*@
+                    <th>Costo</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+
+                    <tr>
+                        <th width="10%">@item.Product.Code</th>
+                        <th width="15%">@item.Product.Description</th>
+                        @*<th width="10%">@item.Brand.Name</th>*@
+                        <th width="10%">@item.Cost</th>
+                        <th width="10%">@item.Price</th>
+                        <th width="10%">@item.Product.Stock</th>
+                        <th width="10%">@item.Quantity</th>
+                        <th width="10%">@(item.Quantity * item.Price)</th>
+                        <th class="text-center">
+                            <div width="30" class="w-75 btn-group" role="group">
+                                <a asp-controller="Sale" asp-action="EditItem" asp-route-ProductId="@item.Product.Id" asp-route-SaleId="@Model.Sale.Id" class="btn btn-outline-secondary mx-2">
+                                    Editar
+                                </a>
+                                <a asp-controller="Sale" asp-action="DeleteItem" asp-route-ProductId="@item.Product.Id" asp-route-SaleId="@Model.Sale.Id" class="btn btn-outline-danger mx-2">
+                                    Eliminar
+                                </a>
+                            </div>
+
+
+                        </th>
+
+                    </tr>
+                    @*<tr>
+            <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+            <th>
+            <div class="w-75 btn-group" role="group">
+            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+            </div>
+            </th>
+
+            </tr>*@
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay elementos</p>
+    }
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

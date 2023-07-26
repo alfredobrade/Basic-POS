@@ -9,10 +9,10 @@ namespace PointOfSale.Models
     public class Sale
     {
         public long Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
         //public int? CustomerId { get; set; }
         //public Customer? Customer { get; set; }
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         public decimal? Cost { get; set; }
         public decimal? Price { get; set; }
@@ -27,7 +27,7 @@ namespace PointOfSale.Models
         public bool? IsSaleCompleted { get; set; } = false;
 
 
-        public ICollection<SaleProduct> SaleProducts { get; set; }
+        public ICollection<SaleProduct>? SaleProducts { get; set; }
 
         public int? UserId { get; set; }
         public int BusinessId { get; set; }

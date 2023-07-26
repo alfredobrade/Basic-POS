@@ -19,44 +19,6 @@ namespace PointOfSale.BL.Services
             _repository = repository;
         }
 
-        public async Task<bool> Sell(string customer, List<long> products) //TODO: es necesario el UserId?
-        {
-            try
-            {
-                var sale = new Sale
-                {
-                    //TODO: UserId?
-                    DateTime = DateTime.Now,
-                    CustomerName = customer,
-                    SaleProducts = new List<SaleProduct>()
-                };
-
-                foreach (var productId in products)
-                {
-                    var product = await _repository.GetProductById(productId);
-
-                    if (product != null)
-                    {
-                        var saleProduct = new SaleProduct
-                        {
-                            //Sale = sale,
-                            Product = product
-                        };
-                        sale.SaleProducts.Add(saleProduct);
-
-                        sale.Cost += product.Cost;
-                        sale.Price += product.Price;
-                    }
-                }
-                await _repository.Create(sale);
-
-                return true;
-
-            }
-            catch (Exception) { throw; }
-
-        }
-
         public async Task<Sale> NewSale(int BusinessUnitId) //TODO: agregar el nombre de customer
         {
             try
@@ -70,11 +32,11 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<bool> AddProduct(int saleId, int productId, int quantity)
+        public async Task<bool> AddProduct(long saleId, long productId, int quantity)
         {
             try
             {
-                var product = await _repository.GetProductById(productId);
+                var product = await _repository.GetProductById(productId); //dejo este para no traer repository de Product
 
                 var saleProduct = new SaleProduct()
                 {
@@ -96,21 +58,17 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        //TODO: metodo para traer los articulos cargados y mostrar el monto de la venta antes de vender
-        //la idea es que el cliente pueda ver el monto y eliminar productos o modif la cantidad
-
-        //TODO: metodo para eliminar productos y otro para modificar cantidad o precio
-
-
-        public async Task<Sale> CloseSale(int saleId)
+        public async Task<Sale> CloseSale(long saleId)
         {
             try
             {
                 var sale = await _repository.Get(s => s.Id == saleId);
-                sale.DateTime = DateTime.Now;
+                //sale.DateTime = DateTime.Now;
+                sale.DateTime = DateTime.UtcNow.AddHours(-3);
+
                 //otros
 
-                var saleProduct = await _repository.GetSaleProducts(saleId);
+                var saleProduct = await _repository.GetSaleDetail(saleId);
                 foreach (var item in saleProduct)
                 {
                     sale.Cost += item.Cost;
@@ -127,12 +85,86 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<bool> CancelSale(int saleId)
+        public async Task<bool> CancelSale(long saleId)
         {
             try
             {
                 var result = await _repository.DeleteSale(saleId);
                 return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<Sale> GetOpenSale(int? BusinessUnitId)
+        {
+            try
+            {
+                var result = await _repository.Get(s => s.BusinessId == BusinessUnitId && s.DateTime == null);
+                if (result != null)
+                {
+                    result.Cost = 0;
+                    result.Price = 0; //TODO: borrar esto despues de la siguiente venta
+
+                    var detail = await _repository.GetSaleDetail(result.Id);
+                    foreach (var item in detail)
+                    {
+                        // se le asignan sumatoria de costos y precios calculados al momento
+                        result.Cost += item.Cost * item.Quantity;
+                        result.Price += item.Price * item.Quantity;
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<SaleProduct>> SaleDetail(long saleId) ////este queda aca porque sino hay que crear un repository mas
+        {
+            try
+            {
+                var detail = await _repository.GetSaleDetail(saleId);
+                return detail;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<Sale> GetSaleById(long saleId)
+        {
+            try
+            {
+                var sale = await _repository.Get(s => s.Id == saleId);
+                return sale;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<Sale>> GetSaleList(int? BusinessUnitId, DateTime? date, string? customer) //TODO: agregar params para el filtrado
+        {
+            try
+            {
+                var saleList = await _repository.GetList(s => s.BusinessId == BusinessUnitId && s.DateTime.HasValue);
+               
+                if (date.HasValue && date.Value != DateTime.MinValue) saleList = saleList.Where(s => s.DateTime.Value.Date == date.Value.Date);
+                if (!String.IsNullOrEmpty(customer)) saleList = saleList.Where(s => s.CustomerName.Contains(customer));
+
+                return saleList;
             }
             catch (Exception)
             {

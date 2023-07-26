@@ -32,6 +32,23 @@ namespace PointOfSale.BL.Services
             }
         }
 
+        public async Task<IEnumerable<Product>> FilterList(int? BusinessId, string? code, string? description)
+        {
+            try
+            {
+                var result = await _repository.GetList(p => p.BusinessId == BusinessId);
+                if (!String.IsNullOrEmpty(code)) result = result.Where(x => x.Code.Contains(code));
+                if (!String.IsNullOrEmpty(description)) result = result.Where(x => x.Description.Contains(description));
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<Product> GetProduct(long Id)
         {
             try
@@ -46,7 +63,7 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<Product> Create(Product product)
+        public async Task<Product> CreateProduct(Product product)
         {
             try
             {
@@ -60,7 +77,7 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<bool> Edit(Product product)
+        public async Task<bool> EditProduct(Product product)
         {
             try
             {
@@ -74,7 +91,7 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<bool> Delete(Product product)
+        public async Task<bool> DeleteProduct(Product product)
         {
             try
             {
@@ -87,5 +104,9 @@ namespace PointOfSale.BL.Services
                 throw;
             }
         }
+
+       
+
+        
     }
 }

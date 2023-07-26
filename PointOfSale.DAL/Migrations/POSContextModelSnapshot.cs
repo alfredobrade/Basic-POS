@@ -328,10 +328,9 @@ namespace PointOfSale.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("CustomerName")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime?>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool?>("IsSaleCompleted")

@@ -9,10 +9,13 @@ namespace PointOfSale.BL.IServices
 {
     public interface ISaleService
     {
-        Task<bool> Sell(string customer, List<long> products);
         Task<Sale> NewSale(int BusinessUnitId);
-        Task<bool> AddProduct(int saleId, int productId, int quantity);
-        Task<Sale> CloseSale(int saleId);
-        Task<bool> CancelSale(int saleId);
+        Task<bool> AddProduct(long saleId, long productId, int quantity);
+        Task<Sale> CloseSale(long saleId);
+        Task<bool> CancelSale(long saleId);
+        Task<Sale> GetOpenSale(int? BusinessUnitId);
+        Task<IEnumerable<SaleProduct>> SaleDetail(long saleId); //este queda aca porque sino hay que crear un repository mas
+        Task<Sale> GetSaleById(long saleId);
+        Task<IEnumerable<Sale>> GetSaleList(int? BusinessUnitId, DateTime? date, string? customer);
     }
 }

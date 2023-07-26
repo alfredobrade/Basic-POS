@@ -17,16 +17,43 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: ProductController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string? code, string? description)
         {
             try
             {
                 var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
 
-                var list = await _productService.GetList(BusinessUnitId);
+                var list = await _productService.FilterList(BusinessUnitId, code, description);
+
+
                 var model = new ProductListVM()
                 {
                     BusinessUnitId = (int)BusinessUnitId,
+                    Products = list
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ActionResult> SearchProduct(long SaleId, string? code, string? description)
+        {
+            try
+            {
+                var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+
+                var list = await _productService.FilterList(BusinessUnitId, code, description);
+
+
+                var model = new ProductListVM()
+                {
+                    BusinessUnitId = (int)BusinessUnitId,
+                    SaleId = SaleId,
                     Products = list
                 };
 
@@ -62,7 +89,7 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                var result = await _productService.Create(product);
+                var result = await _productService.CreateProduct(product);
                 return RedirectToAction("Index", "Product");
             }
             catch
@@ -93,7 +120,7 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (product != null) await _productService.Edit(product);
+                if (product != null) await _productService.EditProduct(product);
 
                 return RedirectToAction("Index", "Product");
             }
@@ -126,7 +153,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
 
-                if (product.Id != 0) await _productService.Delete(product);
+                if (product.Id != 0) await _productService.DeleteProduct(product);
 
                 return RedirectToAction("Index", "Product");
             }

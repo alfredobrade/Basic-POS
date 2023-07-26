@@ -18,7 +18,8 @@ namespace PointOfSale.DAL.Repository
             _context = context;
         }
 
-        public async Task<Product> GetProductById(long ProductId)
+        //dejo este para no inyectar ProductRepository en SaleService
+        public async Task<Product> GetProductById(long ProductId) 
         {
             try
             {
@@ -32,11 +33,11 @@ namespace PointOfSale.DAL.Repository
             }
         }
 
-        public async Task<IEnumerable<SaleProduct>> GetSaleProducts(int saleId)
+        public async Task<Sale> GetSaleComplete(long saleId)
         {
             try
             {
-                var list = await _context.SaleProducts.Where(sp => sp.SaleId == saleId).ToListAsync();
+                var list = await _context.Sales.Where(sp => sp.Id == saleId).FirstOrDefaultAsync();//TODO: faltan los include
                 return list;
             }catch (Exception)
             {
@@ -50,7 +51,10 @@ namespace PointOfSale.DAL.Repository
             {
                 var newSale = new Sale()
                 {
-                    BusinessId = BusinessUnitId
+                    BusinessId = BusinessUnitId,
+                    DateTime = null,
+                    Cost = 0,
+                    Price = 0,
                 };
                 await _context.Sales.AddAsync(newSale);
                 await _context.SaveChangesAsync();
@@ -93,7 +97,7 @@ namespace PointOfSale.DAL.Repository
             }
         }
 
-        public async Task<bool> DeleteSale(int saleId)
+        public async Task<bool> DeleteSale(long saleId)
         {
             using var transaction = _context.Database.BeginTransaction();
             try
@@ -118,6 +122,23 @@ namespace PointOfSale.DAL.Repository
                 throw;
             }
         }
+
+        public async Task<IEnumerable<SaleProduct>> GetSaleDetail(long saleId)
+        {
+            try
+            {
+                var detail = await _context.SaleProducts.Include(p => p.Product).Where(s => s.SaleId == saleId).ToListAsync();
+                return detail;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        
 
     }
 }

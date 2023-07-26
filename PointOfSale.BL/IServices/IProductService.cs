@@ -11,8 +11,9 @@ namespace PointOfSale.BL.IServices
     {
         Task<IEnumerable<Product>> GetList(int? BusinessId);
         Task<Product> GetProduct(long Id);
-        Task<Product> Create(Product product);
-        Task<bool> Edit(Product product);
-        Task<bool> Delete(Product product);
+        Task<Product> CreateProduct(Product product);
+        Task<bool> EditProduct(Product product);
+        Task<bool> DeleteProduct(Product product);
+        Task<IEnumerable<Product>> FilterList(int? BusinessId, string? code, string? description);
     }
 }
