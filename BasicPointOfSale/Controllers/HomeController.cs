@@ -1,6 +1,8 @@
 ﻿using BasicPointOfSale.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PointOfSale.BL.IServices;
+using PointOfSale.BL.Services;
 using PointOfSale.DAL.Context;
 using System.Diagnostics;
 
@@ -9,11 +11,13 @@ namespace BasicPointOfSale.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly POSContext _context;
-        public HomeController(ILogger<HomeController> logger, POSContext context)
+        private readonly ICashRegisterService _cashRegisterService;
+
+        public HomeController(ILogger<HomeController> logger, ICashRegisterService cashRegisterService)
         {
             _logger = logger;
-            _context = context;
+            _cashRegisterService = cashRegisterService;
+
         }
 
         public async Task<IActionResult> Index()
@@ -24,7 +28,13 @@ namespace BasicPointOfSale.Controllers
                 if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
 
                 //TODO: Dashboard 
-                return View();
+                var cashRegister = await _cashRegisterService.ViewCashRegister((int)BusinessUnitId);
+                var model = new DashBoardVM()
+                {
+                    BusinessUnitId = BusinessUnitId,
+                    CashRegister = cashRegister
+                };
+                return View(model);
             }
             catch (Exception)
             {

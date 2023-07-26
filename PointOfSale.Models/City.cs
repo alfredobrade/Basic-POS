@@ -9,6 +9,10 @@ namespace PointOfSale.Models
     public class City
     {
         public int Id { get; set; }
+        public string? Name { get; set; }
+        public int? UtcHourOffset { get; set; } = 0;
 
+        public int? ProvinceOrStateId { get; set; }
+        public int? CountryId { get; set; }
     }
 }

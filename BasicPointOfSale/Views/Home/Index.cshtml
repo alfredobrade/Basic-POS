@@ -1,8 +1,13 @@
-﻿
+﻿@model DashBoardVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>DashBoard</h1>
+
+<p>
+    Caja:      <input type="text" name="Amount" class="form-text" value="@Model.CashRegister.Amount" readonly />
+    @*Descripcion: <input type="text" name="description" class="form-text" />*@
+</p>
 

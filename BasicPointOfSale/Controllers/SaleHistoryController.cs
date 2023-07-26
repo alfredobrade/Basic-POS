@@ -32,7 +32,7 @@ namespace BasicPointOfSale.Controllers
                 var model = new SaleListVM()
                 {
                     BusinessUnitId = (int)BusinessUnitId,
-                    Sales = list
+                    Sales = list.OrderByDescending(s => s.DateTime).ToList()
                 };
 
                 return View(model);

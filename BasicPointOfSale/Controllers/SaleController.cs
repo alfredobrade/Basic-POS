@@ -12,10 +12,13 @@ namespace BasicPointOfSale.Controllers
         private readonly ISaleService _service;
         private readonly IProductService _productService;
         private readonly ISaleProductService _spService;
-        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService)
+        private readonly ICashRegisterService _cashRegisterService;
+
+        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService, ICashRegisterService cashRegisterService)
         {
             _service = service;
             _spService = spService;
+            _cashRegisterService = cashRegisterService;
             _productService = productService;
         }
         // GET: SaleController
@@ -71,7 +74,10 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
-                var saleDetail = await _service.SaleDetail(sale.Id);
+
+                var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);
+                
+                    var saleDetail = await _service.SaleDetail(sale.Id);
                 foreach (var item in saleDetail)
                 {
                     var product = await _productService.GetProduct(item.ProductId);

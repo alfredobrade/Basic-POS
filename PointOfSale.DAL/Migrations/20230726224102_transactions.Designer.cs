@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PointOfSale.DAL.Context;
@@ -11,9 +12,11 @@ using PointOfSale.DAL.Context;
 namespace PointOfSale.DAL.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20230726224102_transactions")]
+    partial class transactions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,7 +480,10 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<decimal?>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BusinessUnitId")
+                    b.Property<int?>("BusinessUnitId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BussinesUnitId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("DateTime")
@@ -691,9 +697,7 @@ namespace PointOfSale.DAL.Migrations
                 {
                     b.HasOne("PointOfSale.Models.BusinessUnit", "BusinessUnit")
                         .WithMany()
-                        .HasForeignKey("BusinessUnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BusinessUnitId");
 
                     b.HasOne("PointOfSale.Models.OperationType", "OperationType")
                         .WithMany("Transactions")

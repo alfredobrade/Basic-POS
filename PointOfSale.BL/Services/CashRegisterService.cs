@@ -42,6 +42,7 @@ namespace PointOfSale.BL.Services
             try
             {
                 var cashRegister = await _repository.Get(cr => cr.BusinessUnitId == BusinessUnitId);
+                
                 cashRegister.Amount -= price;
                 await _repository.Edit(cashRegister);
                 return cashRegister;

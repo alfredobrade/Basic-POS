@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PointOfSale.DAL.Context;
@@ -11,9 +12,11 @@ using PointOfSale.DAL.Context;
 namespace PointOfSale.DAL.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20230726202947_changesOnBusinessUnitId")]
+    partial class changesOnBusinessUnitId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -474,25 +477,26 @@ namespace PointOfSale.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
                     b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("DateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<bool?>("IsExpense")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("OperationTypeId")
+                    b.Property<int?>("BussinesUnitId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsExpense")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("OperationTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -697,7 +701,9 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasOne("PointOfSale.Models.OperationType", "OperationType")
                         .WithMany("Transactions")
-                        .HasForeignKey("OperationTypeId");
+                        .HasForeignKey("OperationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BusinessUnit");
 
