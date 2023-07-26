@@ -22,6 +22,6 @@ namespace PointOfSale.Models
 
 
         public int UserId { get; set; }
-        public int BusinessId { get; set; }
+        public int BusinessUnitId { get; set; }
     }
 }

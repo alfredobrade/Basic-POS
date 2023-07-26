@@ -58,14 +58,14 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<Sale> CloseSale(long saleId)
+        public async Task<Sale> CloseSale(long saleId, string customer)
         {
             try
             {
                 var sale = await _repository.Get(s => s.Id == saleId);
-                //sale.DateTime = DateTime.Now;
-                sale.DateTime = DateTime.UtcNow.AddHours(-3);
-
+                //sale.DateTime = DateTime.Now; Postgre no admite el mismo valor con zona horaria
+                sale.DateTime = DateTime.UtcNow.AddHours(-3); //le seteo como UTC y le agrego las horas de la zona horaria
+                sale.CustomerName = customer;
                 //otros
 
                 var saleProduct = await _repository.GetSaleDetail(saleId);
@@ -103,7 +103,7 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                var result = await _repository.Get(s => s.BusinessId == BusinessUnitId && s.DateTime == null);
+                var result = await _repository.Get(s => s.BusinessUnitId == BusinessUnitId && s.DateTime == null);
                 if (result != null)
                 {
                     result.Cost = 0;
@@ -159,10 +159,15 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                var saleList = await _repository.GetList(s => s.BusinessId == BusinessUnitId && s.DateTime.HasValue);
+                var saleList = await _repository.GetList(s => s.BusinessUnitId == BusinessUnitId && s.DateTime.HasValue);
                
                 if (date.HasValue && date.Value != DateTime.MinValue) saleList = saleList.Where(s => s.DateTime.Value.Date == date.Value.Date);
-                if (!String.IsNullOrEmpty(customer)) saleList = saleList.Where(s => s.CustomerName.Contains(customer));
+                if (!String.IsNullOrEmpty(customer))
+                {
+                    saleList = saleList.Where(s => s.CustomerName != null && s.CustomerName.ToLower().Contains(customer.ToLower()));
+                }
+                    
+                    
 
                 return saleList;
             }

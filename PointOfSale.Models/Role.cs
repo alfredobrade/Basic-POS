@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace PointOfSale.Models
 {
-    internal class Role
+    public class Role
     {
+        public int Id { get; set; }
+
     }
 }

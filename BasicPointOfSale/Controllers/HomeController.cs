@@ -21,9 +21,10 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 int? BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
 
-                var business = await _context.BusinessUnits.Where(b => b.Id == BusinessUnitId).FirstOrDefaultAsync(); //TODO: Dashboard 
-                return View(business);
+                //TODO: Dashboard 
+                return View();
             }
             catch (Exception)
             {

@@ -36,6 +36,8 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var BusinessUnitId = (int)HttpContext.Session.GetInt32("BusinessUnitId"); //TODO: manejar el nullable
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
+
                 var model = new SaleVM()
                 {
                     BusinessUnitId = BusinessUnitId,
@@ -68,15 +70,17 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                var sale = await _service.CloseSale(saleVM.Sale.Id);
+                var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
                 var saleDetail = await _service.SaleDetail(sale.Id);
                 foreach (var item in saleDetail)
                 {
                     var product = await _productService.GetProduct(item.ProductId);
+                    //modifico el stock
                     product.Stock = item.Product.Stock - item.Quantity;
                     await _productService.EditProduct(product);
                 }
                 //close sale
+                //update CashRegister
                 //saledetail - saleId
                 //foreach
                 //GetProduct - product.Id

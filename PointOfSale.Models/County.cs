@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace PointOfSale.Models
 {
-    internal class County
+    public class County
     {
+        public int Id { get; set; }
+
     }
 }

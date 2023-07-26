@@ -23,6 +23,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
 
                 //if (date.Year < 2000) date = null;
                 var list = await _service.GetSaleList(BusinessUnitId, date, customer);

@@ -9,9 +9,9 @@ namespace PointOfSale.Models
     public class CashRegister
     {
         public int Id { get; set; }
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
 
-        public int BusinessId { get; set; }
+        public int BusinessUnitId { get; set; }
 
     }
 }

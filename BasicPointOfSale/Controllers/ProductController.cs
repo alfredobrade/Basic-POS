@@ -21,7 +21,10 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+
                 var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if(BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
+
 
                 var list = await _productService.FilterList(BusinessUnitId, code, description);
 
@@ -46,6 +49,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
 
                 var list = await _productService.FilterList(BusinessUnitId, code, description);
 
@@ -77,7 +81,7 @@ namespace BasicPointOfSale.Controllers
         {
             var product = new Product()
             {
-                BusinessId = BusinessUnitId
+                BusinessUnitId = BusinessUnitId
             };
             return View(product);
         }

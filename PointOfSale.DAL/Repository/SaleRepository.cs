@@ -51,7 +51,7 @@ namespace PointOfSale.DAL.Repository
             {
                 var newSale = new Sale()
                 {
-                    BusinessId = BusinessUnitId,
+                    BusinessUnitId = BusinessUnitId,
                     DateTime = null,
                     Cost = 0,
                     Price = 0,

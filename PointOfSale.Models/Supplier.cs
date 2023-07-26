@@ -18,7 +18,7 @@ namespace PointOfSale.Models
         public ICollection<ProductSupplier>? ProductSuppliers { get; set; }
 
 
-        public int BusinessId { get; set; }
+        public int BusinessUnitId { get; set; }
 
     }
 }

@@ -67,7 +67,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -103,7 +103,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -135,7 +135,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<int>("InvoiceNumber")
@@ -201,7 +201,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<int?>("BrandId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("CategoryId")
@@ -282,7 +282,7 @@ namespace PointOfSale.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("SupplierId")
@@ -318,7 +318,7 @@ namespace PointOfSale.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("Cost")
@@ -394,6 +394,9 @@ namespace PointOfSale.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BusinessUnitId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -422,7 +425,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<string>("Agent")
                         .HasColumnType("text");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -474,10 +477,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("BusinessUnitId")
+                    b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("BussinesUnitId")
@@ -548,7 +548,7 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<int?>("Role")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("YakaAgent")
+                    b.Property<int?>("YakaAgentId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -692,7 +692,9 @@ namespace PointOfSale.DAL.Migrations
                 {
                     b.HasOne("PointOfSale.Models.BusinessUnit", "BusinessUnit")
                         .WithMany()
-                        .HasForeignKey("BusinessUnitId");
+                        .HasForeignKey("BusinessUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PointOfSale.Models.OperationType", "OperationType")
                         .WithMany("Transactions")

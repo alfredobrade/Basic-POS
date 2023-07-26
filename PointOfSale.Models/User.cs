@@ -19,7 +19,7 @@ namespace PointOfSale.Models
         
         public ICollection<UserBusinessUnit>? UserBusinessUnits { get; set; }
         
-        public int? YakaAgent { get; set; }
+        public int? YakaAgentId { get; set; }
 
     }
 }

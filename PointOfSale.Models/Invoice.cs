@@ -16,7 +16,7 @@ namespace PointOfSale.Models
         public decimal Amount { get; set; }
 
         public int SaleId { get; set; }
-        public int BusinessId { get; set; }
+        public int BusinessUnitId { get; set; }
 
     }
 }
