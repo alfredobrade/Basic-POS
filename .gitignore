@@ -6,3 +6,7 @@
 /PointOfSale.DAL/obj
 /PointOfSale.Models/obj
 /BasicPointOfSale/appsettings.Development.json
+/BasicPointOfSale/bin/Release/net6.0
+/PointOfSale.BL/bin/Release/net6.0
+/PointOfSale.DAL/bin/Release/net6.0
+/PointOfSale.Models/bin/Release/net6.0
