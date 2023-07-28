@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAJPkN9M7QA0iaUvNCQUeiWQAAAAACAAAAAAAQZgAAAAEAACAAAABPhxAT/0zVgtvBqF2afusPRX6Dl0dtHRzjDHsOw8cOygAAAAAOgAAAAAIAACAAAAA9NCWcn+dT8t/ra6QWZ14H4KJtrbKf9xb9O8oevmUMUDAAAABSEkpwJVt+duQBX+z0pPm9dS90MC0nK9TRumvMV5jeNjKxSSVbPQgFWHTeSi7vPLNAAAAA5hH4l8t0f0N2+Cm0ahbOouYdm5iJGNQiCqfAQH7rmlaxkcd3vC+54SAPhwUoRjpCZfIttcFywTW7aZiO01mYAg==</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DevConnection">
+      <Value>Server=silly.db.elephantsql.com%3bPort=5432%3bDatabase=ausxprki%3bUser Id=ausxprki%3bPassword=jLR6yzItPl-irF9uZSK_B6MXP_9XXEMy%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="PointOfSale.DAL.Context.POSContext">
+      <Value>Server=silly.db.elephantsql.com%3bPort=5432%3bDatabase=ausxprki%3bUser Id=ausxprki%3bPassword=jLR6yzItPl-irF9uZSK_B6MXP_9XXEMy%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

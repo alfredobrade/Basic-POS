@@ -37,18 +37,25 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                var user = new User()
+                if (ModelState.IsValid)
                 {
-                    Email = userVM.Email,
-                    Name = userVM.Name,
-                    Password = userVM.Password
-                };
+                    var user = new User()
+                    {
+                        Email = userVM.Email,
+                        Name = userVM.Name,
+                        Password = userVM.Password
+                    };
 
 
 
-                user = await _service.Create(user);
-                userVM.Id = user.Id;
-                return RedirectToAction("Index", "User", userVM);
+                    user = await _service.Create(user);
+                    userVM.Id = user.Id;
+                    return RedirectToAction("Index", "User", userVM);
+                }
+                else
+                {
+                    return View(userVM);
+                }
             }
             catch
             {

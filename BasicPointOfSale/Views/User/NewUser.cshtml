@@ -48,13 +48,7 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
-                @*<div class="row">
-                <div class="col-md-6">
-                <label asp-for="Password" class="form-label">Contraseña</label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                </div>*@
+                
                 <br />
                 <div class="d-grid gap-2 d-md-block">
                     <button type="submit" class="btn btn-outline-primary">Crear</button>
@@ -76,3 +70,8 @@
 
 </body>
 </html>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
