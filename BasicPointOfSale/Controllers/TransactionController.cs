@@ -40,7 +40,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> TransactionDetails(int id)
         {
             return View();
         }
@@ -143,7 +143,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteTransaction(int id)
         {
             return View();
         }
@@ -151,7 +151,7 @@ namespace BasicPointOfSale.Controllers
         // POST: TransactionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteTransaction(int id, IFormCollection collection)
         {
             try
             {

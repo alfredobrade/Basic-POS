@@ -101,7 +101,7 @@ namespace BasicPointOfSale.Controllers
         // POST: SaleHistoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteSale(int id, IFormCollection collection)
         {
             try
             {

@@ -105,8 +105,22 @@ namespace PointOfSale.BL.Services
             }
         }
 
-       
+        public async Task<IEnumerable<Product>> ProductsUnderMinStock(int? BusinessId)
+        {
+            try
+            {
+                var result = await _repository.GetList(p => p.BusinessUnitId == BusinessId && p.Stock < p.StockMin);
 
-        
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+
     }
 }

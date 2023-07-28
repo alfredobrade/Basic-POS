@@ -4,30 +4,42 @@ using PointOfSale.DAL.Context;
 using PointOfSale.DAL.IRepository;
 using PointOfSale.Models;
 using Microsoft.EntityFrameworkCore;
-
+using PointOfSale.BL.IServices;
+using System.Security.Claims;
 
 namespace BasicPointOfSale.Controllers
 {
     public class BusinessUnitController : Controller
     {
-        private readonly IGenericRepository<BusinessUnit> _repository;
         private readonly ILogger<BusinessUnit> _logger;
-        private readonly POSContext _context; //TODO: que no venga de context
-        public BusinessUnitController(ILogger<BusinessUnit> logger, IGenericRepository<BusinessUnit> repository,  POSContext context)
+        private readonly IBusinessUnitService _businessUnitService;
+        private readonly IUserService _UserService;
+        private readonly ICashRegisterService _cashRegisterService;
+        private readonly string _userEmail;
+
+        public BusinessUnitController(ILogger<BusinessUnit> logger, 
+            IBusinessUnitService businessUnitService,
+            IUserService userService,
+            ICashRegisterService cashRegisterService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
-            _context = context;
-            _repository = repository;
+            _businessUnitService = businessUnitService;
+            _UserService = userService;
+            _cashRegisterService = cashRegisterService;
+            _userEmail = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
         }
+
         // GET: BusinessUnitController
         public async Task<IActionResult> Index()
         {
             try
             {
                 //TODO: Agregar logica de usuario logueado
+                var user = await _UserService.GetByEmail(_userEmail);
 
-                var business = await _context.BusinessUnits.ToListAsync();
-                return View(business);
+                var businessList = await _businessUnitService.GetBusinessUnits(user.Id);
+                return View(businessList);
             }
             catch (Exception)
             {
@@ -79,7 +91,15 @@ namespace BasicPointOfSale.Controllers
         // GET: BusinessUnitController/Create
         public async Task<ActionResult> NewBusinessUnit()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: BusinessUnitController/Create
@@ -89,7 +109,10 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                await _repository.Create(model);
+                var user = await _UserService.GetByEmail(_userEmail);
+
+                await _businessUnitService.NewBusinessUnit(user.Id ,model);
+                await _cashRegisterService.NewCashRegister(model.Id);
                 return RedirectToAction("Index","BusinessUnit");
             }
             catch

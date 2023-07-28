@@ -25,21 +25,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Product.Code" class="form-label">Code @Model.Product.Code</label>
-                    @*<input asp-for="Product.Code" class="form-control" />*@
+                    <input type ="hidden" asp-for="Product.Code" class="form-control" />
                     <span asp-validation-for="Product.Code" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Product.Description" class="form-label">Description @Model.Product.Description</label>
-                    @*<input asp-for="Product.Description" class="form-control" />*@
+                    <input type="hidden" asp-for="Product.Description" class="form-control" />
                     <span asp-validation-for="Product.Description" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Product.Cost" class="form-label">Cost @Model.Product.Cost</label>
-                    @*<input asp-for="Product.Cost" class="form-control" />*@
+                    <input type="hidden" asp-for="Product.Cost" class="form-control" />
                     <span asp-validation-for="Product.Cost" class="text-danger"></span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Product.Stock" class="form-label">stock  @Model.Product.Stock</label>
-                    @*<input asp-for="Product.Stock" class="form-control" />*@
+                    <input type="hidden" asp-for="Product.Stock" class="form-control" />
                     <span asp-validation-for="Product.Stock" class="text-danger"></span>
                 </div>
             </div>

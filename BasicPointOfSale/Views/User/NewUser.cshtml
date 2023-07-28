@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <form method="post" asp-action="NewUser">
+    <form method="post" asp-action="NewUser" asp-controller="User">
         @*<input type="hidden" asp-for="UserId" />*@
         <div class="border p-3">
 
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label asp-for="Password" class="form-label">Contraseña</label>
-                        <input asp-for="Password" type="password" class="form-control" />
+                        <input asp-for="Password" type="password" class="form-control" placeholder="(Optional)" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>

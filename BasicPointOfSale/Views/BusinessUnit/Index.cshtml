@@ -14,68 +14,44 @@
 
 </head>
 <body>
-    <div class="text-center">
+    <div class="container-fluid">
+        <div class="row mt-5 d-flex justify-content-center mb-5 ">
+            <ul class="nav nav-tabs">
+                <li class="nav-item ">
+                    <a class="btn btn-outline-info ml-2" asp-controller="BusinessUnit" asp-action="NewBusinessUnit" asp-route-UserId="">NewBusinessUnit</a>
 
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>
-    @if (Model.Count() > 0)
-    {
-        
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
+                </li>
+                <li class="nav-item ">
+                    <a class="btn btn-outline-dark ml-2" asp-area="" asp-controller="Access" asp-action="Exit">Log Out</a>
+                </li>
+            </ul>
 
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        </div>
+            @if (Model.Count() > 0)
+            {
 
-                    <tr>
+            <div class="row d-flex justify-content-center">
 
+                    @foreach (var item in Model)
+                    {
+                    <div class="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+                            <div class="card w-50">
+                                <div class="card-body">
+                                    <h1 class="card-title">@item.Name</h1>
+                                    <p class="card-text">Description</p>
+                                    <a class="btn btn-lg btn-outline-secondary w-100" asp-controller="BusinessUnit" asp-action="SelectBusiness" asp-route-BusinessUnitId="@item.Id">Ingresar</a>
+                                </div>
+                            </div>
+                        </div>
 
-                        <th width="25%"><a class="btn btn-outline-secondary" asp-controller="BusinessUnit" asp-action="SelectBusiness" asp-route-BusinessUnitId="@item.Id">@item.Name</a></th>
-
-
-
-                        @*<th class="text-center">
-                <div width="30" class="w-75 btn-group" role="group">
-                <a asp-controller="Vehicle" asp-action="Edit" asp-route-VehicleId="@item.Id" class="btn btn-primary mx-2">
-                Editar
-                </a>
-                <a asp-controller="Vehicle" asp-action="Delete" asp-route-VehicleId="@item.Id" class="btn btn-danger mx-2">
-                Eliminar
-                </a>
+                    }
                 </div>
 
-
-                </th>*@
-
-                    </tr>
-                    @*<tr>
-            <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
-            <th>
-            <div class="w-75 btn-group" role="group">
-            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
-            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
-            </div>
-            </th>
-
-            </tr>*@
-                }
-            </tbody>
-
-        </table>
-    }
-    else
-    {
-        <p>No hay elementos</p>
-    }
-    <div class="row mt-5 d-flex justify-content-center">
-        <a class="btn btn-info" asp-controller="BusinessUnit" asp-action="NewBusinessUnit">NewBusinessUnit</a>
+            }
+            else
+            {
+                <p>No hay elementos</p>
+            }
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

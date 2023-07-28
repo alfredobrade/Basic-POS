@@ -51,6 +51,12 @@ namespace BasicPointOfSale.Controllers
                 {
                     model.Sale = openSale;
                     model.Products = await _service.SaleDetail(openSale.Id);
+
+                    foreach (var item in model.Products)
+                    {
+                        //logica para avisar que la cantidad deja debajo de stock minimo
+
+                    }
                     return View(model);
                 }
 
@@ -143,7 +149,6 @@ namespace BasicPointOfSale.Controllers
                     Product = await _productService.GetProduct(ProductId),
                     Quantity = 1
                 };
-
                 return View(model);
             }
             catch (Exception)
@@ -159,6 +164,8 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                if (model.Product.Stock < model.Quantity) return RedirectToAction("QuantityOverStock", "Sale", model);
+
                 var result = await _service.AddProduct(model.SaleId, model.Product.Id, (int)model.Quantity);
 
                 //TODO: agregar metodo para pasarle el precio
@@ -258,6 +265,20 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
+        public async Task<ActionResult> QuantityOverStock(SaleProductVM model)
+        {
+            try
+            {
+                
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
     }
 }

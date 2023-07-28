@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
 {
     // Configurar las opciones de sesión según tus necesidades
-    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.IdleTimeout = TimeSpan.FromDays(1);
 });
 
 builder.Services.AddControllersWithViews();
@@ -19,10 +19,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(option =>
     {
         option.LoginPath = "/Access/Index";
-        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        option.ExpireTimeSpan = TimeSpan.FromDays(1);
         option.AccessDeniedPath = "/Home/Privacy";
 
     });
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -48,6 +49,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=BusinessUnit}/{action=Index}/{id?}");
+    pattern: "{controller=Access}/{action=Index}/{id?}");
 
 app.Run();
