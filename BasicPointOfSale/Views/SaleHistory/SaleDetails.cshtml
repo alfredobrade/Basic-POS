@@ -1,13 +1,94 @@
-﻿
+﻿@model SaleVM
 @{
     ViewData["Title"] = "SaleDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>SaleDetails</h1>
 
-<div class="alert alert-warning">
-    <p>
-        Under Construction
-    </p>
+<div class="border p-3">
+
+
+
+    <div class="form-group row">
+        <h2 class="text-info pl-3">Detalle de Venta</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="Sale.DateTime" class="form-label">Fecha</label>
+                <input asp-for="Sale.DateTime" class="form-control" readonly/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="Sale.CustomerName" class="form-label">Cliente</label>
+                <input asp-for="Sale.CustomerName" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="Sale.Cost" class="form-label">Costo</label>
+                <input asp-for="Sale.Cost" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="Sale.Price" class="form-label">Total</label>
+                <input asp-for="Sale.Price" class="form-control" readonly />
+            </div>
+        </div>
+        
+        @*<div class="row">
+        <div class="col-md-6">
+        <label asp-for="StockMin" class="form-label">StockMin</label>
+        <input asp-for="StockMin" class="form-control" />
+        <span asp-validation-for="StockMin" class="text-danger"></span>
+        </div>
+        </div>*@
+
+        
+    </div>
+
+
+
+</div>
+<div class="container mt-3">
+    @if (Model.Products.Count() > 0)
+    {
+        <table class="table table-bordered table-striped mt-2" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    @*<th>Marca</th>*@
+                    <th>Costo</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+
+                    <tr>
+                        <th width="10%">@item.Product.Code</th>
+                        <th width="15%">@item.Product.Description</th>
+                        @*<th width="10%">@item.Brand.Name</th>*@
+                        <th width="10%">@item.Cost</th>
+                        <th width="10%">@item.Price</th>
+                        <th width="10%">@item.Quantity</th>
+                        <th width="10%">@(item.Quantity * item.Price)</th>
+                        
+                    </tr>
+            
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay elementos</p>
+    }
 </div>

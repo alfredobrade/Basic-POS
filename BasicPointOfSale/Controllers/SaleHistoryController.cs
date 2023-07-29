@@ -47,7 +47,22 @@ namespace BasicPointOfSale.Controllers
         // GET: SaleHistoryController/Details/5
         public async Task<ActionResult> SaleDetails(long SaleId)
         {
-            return View();
+            try
+            {
+                var sale = await _service.GetSaleById(SaleId);
+                var saleDetail = await _service.SaleDetail(SaleId);
+                var model = new SaleVM()
+                {
+                    Sale = sale,
+                    Products = saleDetail
+                };
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: SaleHistoryController/Create
@@ -95,17 +110,34 @@ namespace BasicPointOfSale.Controllers
         // GET: SaleHistoryController/Delete/5
         public async Task<ActionResult> DeleteSale(long SaleId)
         {
-            return View();
+            try
+            {
+                var sale = await _service.GetSaleById(SaleId);
+                var saleDetail = await _service.SaleDetail(SaleId);
+                var model = new SaleVM()
+                {
+                    Sale = sale,
+                    Products = saleDetail
+                };
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: SaleHistoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteSale(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteSale(SaleVM model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await _service.CancelSale(model.Sale.Id);
+
+                return RedirectToAction("Index", "SaleHistory");
             }
             catch
             {
