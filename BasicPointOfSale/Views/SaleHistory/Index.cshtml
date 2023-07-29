@@ -1,0 +1,92 @@
+﻿@model SaleListVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="conainer p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Historial de Ventas</h2>
+
+        </div>
+
+        @*<div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="NewProduct" asp-route-BusinessUnitId="@Model.BusinessUnitId" class="btn btn-primary">Nuevo Producto</a>
+        </div>*@
+
+    </div>
+    <br />
+    <form asp-controller="SaleHistory" asp-action="Index" method="get">
+
+        <p>
+            Fecha:      <input type="date" name="date" class="form-text" value=""/>
+            @*<input type="submit" value="Buscar" class="btn btnsmall btn-dark" />*@
+            Cliente: <input type="text" name="customer" class="form-text" />
+            <input type="submit" value="Buscar" class="btn btnsmall btn-dark" />
+        </p>
+
+    </form>
+    @if (Model.Sales.Count() > 0)
+
+
+
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    @*<th>Marca</th>*@
+                    <th>Costo</th>
+                    <th>Precio</th>
+                    <th>Profit</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Sales)
+                {
+
+                    <tr>
+                        <th width="10%">@item.DateTime</th>
+                        <th width="15%">@item.CustomerName</th>
+                        @*<th width="10%">@item.</th>*@
+                        <th width="10%">@item.Cost</th>
+                        <th width="10%">@item.Price</th>
+                        <th width="10%">@(item.Price-item.Cost)</th>
+                        <th class="text-center">
+                            <div width="30" class="w-75 btn-group" role="group">
+                                <a asp-controller="SaleHistory" asp-action="SaleDetails" asp-route-SaleId="@item.Id" class="btn btn-outline-secondary mx-2">
+                                    Details
+                                </a>
+                                <a asp-controller="SaleHistory" asp-action="DeleteSale" asp-route-SaleId="@item.Id" class="btn btn-outline-danger mx-2">
+                                    Delete
+                                </a>
+                            </div>
+
+
+                        </th>
+
+                    </tr>
+                    @*<tr>
+            <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+            <th>
+            <div class="w-75 btn-group" role="group">
+            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+            </div>
+            </th>
+
+            </tr>*@
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay Ventas</p>
+    }
+
+</div>

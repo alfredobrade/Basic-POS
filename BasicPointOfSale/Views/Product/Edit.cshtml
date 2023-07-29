@@ -1,0 +1,86 @@
+﻿
+@model PointOfSale.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<form method="post" asp-action="Edit">
+    <input type="hidden" asp-for="BusinessUnitId" />
+    <input type="hidden" asp-for="Id" />
+
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Editar Producto</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Code" class="form-label">Code</label>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Cost" class="form-label">Cost</label>
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Stock" class="form-label">stock</label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <label asp-for="StockMin" class="form-label">StockMin</label>
+            <input asp-for="StockMin" class="form-control" />
+            <span asp-validation-for="StockMin" class="text-danger"></span>
+            </div>
+            </div>
+
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-outline-secondary">Editar</button>
+                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-success">Regresar</a>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
