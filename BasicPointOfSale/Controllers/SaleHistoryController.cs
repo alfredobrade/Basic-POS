@@ -9,16 +9,18 @@ namespace BasicPointOfSale.Controllers
     public class SaleHistoryController : Controller
     {
         private readonly ISaleService _service;
-        //private readonly IProductService _productService;
+        private readonly IProductService _productService;
         private readonly ISaleProductService _spService;
-        public SaleHistoryController(ISaleService service, ISaleProductService spService)
+
+        public SaleHistoryController(ISaleService service, ISaleProductService spService, IProductService productService)
         {
             _service = service;
             _spService = spService;
-            //_productService = productService;
+            _productService = productService;
         }
+
         // GET: SaleHistoryController
-        public async Task<ActionResult> Index( DateTime date, string customer)
+        public async Task<ActionResult> Index(DateTime date, string customer)
         {
             try
             {
@@ -135,7 +137,18 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                var products = await _service.SaleDetail(model.Sale.Id);
+                if (products != null)
+                {
+                    foreach (var item in products)
+                    {
+                        var product = await _productService.GetProduct(item.ProductId);
+                        item.Product.Stock += item.Quantity;
+                        await _productService.EditProduct(item.Product);
+                    }
+                }
                 var result = await _service.CancelSale(model.Sale.Id);
+
 
                 return RedirectToAction("Index", "SaleHistory");
             }
