@@ -54,7 +54,7 @@ namespace BasicPointOfSale.Controllers
 
                     foreach (var item in model.Products)
                     {
-                        //logica para avisar que la cantidad deja debajo de stock minimo
+                        //TODO: logica para avisar que la cantidad deja debajo de stock minimo
 
                     }
                     return View(model);

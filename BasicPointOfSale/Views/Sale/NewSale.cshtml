@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Sale.DateTime" class="form-label">Fecha @DateTime.Now</label>
+                    <label asp-for="Sale.DateTime" class="form-label">Fecha @DateTime.UtcNow.AddHours(-3)</label>
                     @*<input asp-for="Sale.DateTime" class="form-control" />*@
                     <span asp-validation-for="Sale.DateTime" class="text-danger"></span>
                 </div>
