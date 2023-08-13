@@ -79,17 +79,25 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
-
-                var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);
-                
-                    var saleDetail = await _service.SaleDetail(sale.Id);
-                foreach (var item in saleDetail)
+                var saleDetail = await _service.SaleDetail(saleVM.Sale.Id);
+                if (saleDetail != null)
                 {
-                    var product = await _productService.GetProduct(item.ProductId);
-                    //modifico el stock
-                    product.Stock = item.Product.Stock - item.Quantity;
-                    await _productService.EditProduct(product);
+                    var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
+
+                    var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);
+
+                    foreach (var item in saleDetail)
+                    {
+                        var product = await _productService.GetProduct(item.ProductId);
+                        //modifico el stock
+                        product.Stock = item.Product.Stock - item.Quantity;
+                        await _productService.EditProduct(product);
+                    }
+                    return RedirectToAction("Index", "SaleHistory");
+                }
+                else
+                {
+                    return View(saleVM);
                 }
                 //close sale
                 //update CashRegister
@@ -99,11 +107,10 @@ namespace BasicPointOfSale.Controllers
                 //EditProduct stock - product.Id
 
 
-                return RedirectToAction("Index", "SaleHistory");
             }
             catch
             {
-                return View();
+                return View(saleVM);
             }
         }
 

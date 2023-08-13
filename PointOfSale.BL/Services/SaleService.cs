@@ -69,14 +69,16 @@ namespace PointOfSale.BL.Services
                 //otros
 
                 var saleProduct = await _repository.GetSaleDetail(saleId);
+
                 foreach (var item in saleProduct)
                 {
-                    sale.Cost += item.Cost;
-                    sale.Price += item.Price;
+                    sale.Cost += item.Cost * item.Quantity;
+                    sale.Price += item.Price * item.Quantity;
                 }
 
                 var result = await _repository.UpdateSale(sale);
                 return sale;
+
             }
             catch (Exception)
             {
@@ -160,14 +162,14 @@ namespace PointOfSale.BL.Services
             try
             {
                 var saleList = await _repository.GetList(s => s.BusinessUnitId == BusinessUnitId && s.DateTime.HasValue);
-               
+
                 if (date.HasValue && date.Value != DateTime.MinValue) saleList = saleList.Where(s => s.DateTime.Value.Date == date.Value.Date);
                 if (!String.IsNullOrEmpty(customer))
                 {
                     saleList = saleList.Where(s => s.CustomerName != null && s.CustomerName.ToLower().Contains(customer.ToLower()));
                 }
-                    
-                    
+
+
 
                 return saleList;
             }
