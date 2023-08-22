@@ -1,0 +1,12 @@
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\bin\Debug\net6.0\PointOfSale.Models.deps.json
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\bin\Debug\net6.0\PointOfSale.Models.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\bin\Debug\net6.0\PointOfSale.Models.pdb
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.csproj.AssemblyReference.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.AssemblyInfoInputs.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.AssemblyInfo.cs
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.csproj.CoreCompileInputs.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\refint\PointOfSale.Models.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\PointOfSale.Models.pdb
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.Models\obj\Debug\net6.0\ref\PointOfSale.Models.dll
