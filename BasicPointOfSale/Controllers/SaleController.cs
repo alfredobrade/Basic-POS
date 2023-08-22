@@ -79,6 +79,7 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                if (saleVM.Sale.CustomerName == null) saleVM.Sale.CustomerName = "Consumidor final";
                 var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
 
                 var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);

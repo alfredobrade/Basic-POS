@@ -32,7 +32,7 @@ namespace BasicPointOfSale.Controllers
                 var model = new ProductListVM()
                 {
                     BusinessUnitId = (int)BusinessUnitId,
-                    Products = list
+                    Products = list.OrderBy(p => p.Description).ToList()
                 };
 
                 return View(model);
@@ -58,7 +58,7 @@ namespace BasicPointOfSale.Controllers
                 {
                     BusinessUnitId = (int)BusinessUnitId,
                     SaleId = SaleId,
-                    Products = list
+                    Products = list.OrderBy(p => p.Description).ToList()
                 };
 
                 return View(model);

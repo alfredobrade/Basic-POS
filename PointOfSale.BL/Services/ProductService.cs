@@ -37,7 +37,7 @@ namespace PointOfSale.BL.Services
             try
             {
                 var result = await _repository.GetList(p => p.BusinessUnitId == BusinessId);
-                if (!String.IsNullOrEmpty(code)) result = result.Where(x => x.Code.Contains(code));
+                if (!String.IsNullOrEmpty(code)) result = result.Where(x => x.Code.ToLower().Contains(code.ToLower()));
                 if (!String.IsNullOrEmpty(description)) result = result.Where(x => x.Description.ToLower().Contains(description.ToLower()));
 
                 return result;
