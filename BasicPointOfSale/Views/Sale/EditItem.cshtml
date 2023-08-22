@@ -1,0 +1,92 @@
+﻿
+@model SaleProductVM
+
+@{
+    ViewData["Title"] = "EditItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" asp-action="EditItem" asp-controller="Sale">
+    <input type="hidden" asp-for="SaleId" />
+    <input type="hidden" asp-for="Product.Id" />
+
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Editar Item</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Product.Code" class="form-label">Código</label>
+                    <input asp-for="Product.Code" class="form-control" readonly/>
+                    <span asp-validation-for="Product.Code" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Product.Description" class="form-label">Descripción</label>
+                    <input asp-for="Product.Description" class="form-control" readonly />
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Product.Cost" class="form-label">Costo</label>
+                    <input asp-for="Product.Cost" class="form-control" readonly />
+                    <span asp-validation-for="Product.Cost" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Product.Price" class="form-label">Precio</label>
+                    @*logica para que solo modifique precio el admin*@
+                    @if(true){
+                        <input asp-for="Product.Price" class="form-control" />
+                    }
+                    else
+                    {
+                        <input asp-for="Product.Price" class="form-control" readonly/>
+                    }
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Product.Stock" class="form-label">Stock</label>
+                    <input asp-for="Product.Stock" class="form-control" readonly />
+                    <span asp-validation-for="Product.Stock" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                    <label asp-for="Quantity" class="form-label">Cantidad</label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            </div>
+
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-outline-secondary">Editar</button>
+                <a asp-controller="Sale" asp-action="NewSale" class="btn btn-outline-success">Regresar</a>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

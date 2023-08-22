@@ -1,0 +1,98 @@
+﻿@model ProductListVM
+
+@{
+    ViewData["Title"] = "SearchProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="conainer p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Productos</h2>
+
+        </div>
+
+
+
+    </div>
+    <br />
+    <form asp-controller="Product" asp-action="SearchProduct" method="get">
+        <input type="hidden" asp-for="SaleId" />
+        <div>
+            Codigo:      <input type="text" name="code" class="form-text" />
+        </div>
+        <div>
+            Descripcion: <input type="text" name="description" class="form-text" />
+        </div>
+        <div>
+
+            <input type="submit" value="Buscar" class="btn btnsmall btn-dark mt-1" />
+        </div>
+
+    </form>
+    @if (Model.Products.Count() > 0)
+
+
+
+    {
+        <table class="table table-bordered table-striped mt-2" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    @*<th>Marca</th>*@
+                    <th>Costo</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>StockMinimo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+
+                    <tr>
+                        <th width="10%">@item.Code</th>
+                        <th width="15%">@item.Description</th>
+                        @*<th width="10%">@item.Brand.Name</th>*@
+                        <th width="10%">@item.Cost</th>
+                        <th width="10%">@item.Price</th>
+                        <th width="10%">@item.Stock</th>
+                        <th width="10%">@item.StockMin</th>
+                        <th class="text-center">
+                            <div width="30" class="w-75 btn-group" role="group">
+                                <a asp-controller="Sale" asp-action="AddItem" asp-route-ProductId="@item.Id" asp-route-SaleId="@Model.SaleId" class="btn btn-outline-primary mx-2">
+                                    Agregar
+                                </a>
+                            </div>
+
+
+                        </th>
+
+                    </tr>
+                    @*<tr>
+            <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+            <th>
+            <div class="w-75 btn-group" role="group">
+            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+            </div>
+            </th>
+
+            </tr>*@
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay elementos</p>
+    }
+
+</div>
+
+
