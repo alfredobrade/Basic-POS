@@ -18,11 +18,11 @@
         <div class="row mt-5 d-flex justify-content-center mb-5 ">
             <ul class="nav nav-tabs">
                 <li class="nav-item ">
-                    <a class="btn btn-outline-info ml-2" asp-controller="BusinessUnit" asp-action="NewBusinessUnit" asp-route-UserId="">NewBusinessUnit</a>
+                    <a class="btn btn-outline-info ml-2" asp-controller="BusinessUnit" asp-action="NewBusinessUnit" asp-route-UserId="">Nuevo Negocio</a>
 
                 </li>
                 <li class="nav-item ">
-                    <a class="btn btn-outline-dark ml-2" asp-area="" asp-controller="Access" asp-action="Exit">Log Out</a>
+                    <a class="btn btn-outline-dark ml-2" asp-area="" asp-controller="Access" asp-action="Exit">Cerrar Sesión</a>
                 </li>
             </ul>
 
@@ -38,7 +38,7 @@
                             <div class="card w-50">
                                 <div class="card-body">
                                     <h1 class="card-title">@item.Name</h1>
-                                    <p class="card-text">Description</p>
+                                    <p class="card-text">Descripción</p>
                                     <a class="btn btn-lg btn-outline-secondary w-100" asp-controller="BusinessUnit" asp-action="SelectBusiness" asp-route-BusinessUnitId="@item.Id">Ingresar</a>
                                 </div>
                             </div>

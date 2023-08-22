@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
 
 <form method="post" asp-action="Delete">
     <input type="hidden" asp-for="BusinessUnitId" />
@@ -18,47 +17,47 @@
 
 
         <div class="form-group row">
-            <h2 class="text-info pl-3">Eliminar Vehiculo</h2>
+            <h2 class="text-info pl-3">Eliminar Producto</h2>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Code" class="form-label">Code @Model.Code</label>
+                    <label asp-for="Code" class="form-label">Código: @Model.Code</label>
                     <input type="hidden" asp-for="Code" class="form-control" />
                     <span asp-validation-for="Code" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Description" class="form-label">Description @Model.Description</label>
+                    <label asp-for="Description" class="form-label">Descripción: @Model.Description</label>
                     <input type="hidden" asp-for="Description" class="form-control" />
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Cost" class="form-label">Cost @Model.Cost</label>
+                    <label asp-for="Cost" class="form-label">Costo: @Model.Cost</label>
                     <input type="hidden" asp-for="Cost" class="form-control" />
                     <span asp-validation-for="Cost" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Price" class="form-label">Price @Model.Price</label>
+                    <label asp-for="Price" class="form-label">Precio: @Model.Price</label>
                     <input type="hidden" asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Stock" class="form-label">Stock @Model.Stock</label>
+                    <label asp-for="Stock" class="form-label">Stock: @Model.Stock</label>
                     <input type="hidden" asp-for="Stock" class="form-control" />
                     <span asp-validation-for="Stock" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
             <div class="col-md-6">
-            <label asp-for="StockMin" class="form-label">StockMin @Model.StockMin</label>
+            <label asp-for="StockMin" class="form-label">StockMin: @Model.StockMin</label>
             <input type="hidden" asp-for="StockMin" class="form-control" />
             <span asp-validation-for="StockMin" class="text-danger"></span>
             </div>

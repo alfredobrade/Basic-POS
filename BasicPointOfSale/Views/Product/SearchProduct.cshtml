@@ -19,17 +19,17 @@
     </div>
     <br />
     <form asp-controller="Product" asp-action="SearchProduct" method="get">
-        <p>
-            <input type="hidden" asp-for="SaleId" />
+        <input type="hidden" asp-for="SaleId" />
+        <div>
             Codigo:      <input type="text" name="code" class="form-text" />
-            @*<input type="submit" value="Buscar" class="btn btnsmall btn-dark" />*@
+        </div>
+        <div>
             Descripcion: <input type="text" name="description" class="form-text" />
-            @*<input type="submit" asp-route-SaleId="SaleId" value="Buscar" class="btn btnsmall btn-dark" />*@
-            @*<a asp-controller="Product" asp-action="Delete" asp-route-ProductId="@Model.SaleId" class="btn btn-danger mx-2">
-                Eliminar
-            </a>*@
-            <button type="submit" class="btn btn-outline-primary">Buscar</button>
-        </p>
+        </div>
+        <div>
+
+            <input type="submit" value="Buscar" class="btn btnsmall btn-dark mt-1" />
+        </div>
 
     </form>
     @if (Model.Products.Count() > 0)
@@ -37,7 +37,7 @@
 
 
     {
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped mt-2" style="width:100%">
             <thead>
                 <tr>
                     <th>Codigo</th>

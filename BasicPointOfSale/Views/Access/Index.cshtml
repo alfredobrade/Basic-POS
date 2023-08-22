@@ -21,19 +21,19 @@
             <div class="col-sm-4 offset-sm-4">
                 <form asp-controller="Access" asp-action="Index" method="post">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">Email</label>
                         <input type="email" class="form-control" asp-for="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <small id="emailHelp" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label for="exampleInputPassword1">Contraseña</label>
                         <input type="password" class="form-control" asp-for="Password" id="exampleInputPassword1">
                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    @*<div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>*@
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
                 </form>
 
             </div>
@@ -44,8 +44,12 @@
         </div>
 
         <div class="row mt-5 d-flex justify-content-center">
-            <a class="btn btn-info" asp-controller="User" asp-action="NewUser">Sign Up</a>
+            <a class="btn btn-info" asp-controller="User" asp-action="NewUser">Registrarse</a>
 
+        </div>
+        <div>
+            <iframe style="width:320px;height:260px;border-radius:10px;box-shadow:2px 4px 4px rgb(0 0 0 / 25%);display:flex;justify-content:center;border:1px solid #bcbcbc" src="https://dolarhoy.com/i/cotizaciones/dolar-blue" frameborder="0">
+            </iframe>
         </div>
 
         <div class="d-flex justify-content-center mt-5">

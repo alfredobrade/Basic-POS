@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="alert alert-primary">NewProduct</h1>
 
 <form method="post" asp-action="NewProduct">
     <input type="hidden" asp-for="BusinessUnitId" />
@@ -16,47 +15,47 @@
 
 
         <div class="form-group row">
-            <h2 class="text-info pl-3">Nuevo Vehiculo</h2>
+            <h2 class="text-info pl-3">Nuevo Producto</h2>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Code" class="form-label">Code</label>
+                    <label asp-for="Code" class="form-label">Código</label>
                     <input asp-for="Code" class="form-control" />
                     <span asp-validation-for="Code" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Description" class="form-label">Description</label>
+                    <label asp-for="Description" class="form-label">Descripción</label>
                     <input asp-for="Description" class="form-control" />
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Cost" class="form-label">Cost</label>
+                    <label asp-for="Cost" class="form-label">Costo</label>
                     <input asp-for="Cost" class="form-control" />
                     <span asp-validation-for="Cost" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Price" class="form-label">Price</label>
+                    <label asp-for="Price" class="form-label">Precio</label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Stock" class="form-label">stock</label>
+                    <label asp-for="Stock" class="form-label">Stock</label>
                     <input asp-for="Stock" class="form-control" />
                     <span asp-validation-for="Stock" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="StockMin" class="form-label">StockMin</label>
+                    <label asp-for="StockMin" class="form-label">Stock Mínimo</label>
                     <input asp-for="StockMin" class="form-control" />
                     <span asp-validation-for="StockMin" class="text-danger"></span>
                 </div>

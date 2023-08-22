@@ -1,0 +1,17 @@
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.DAL.deps.json
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.DAL.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.DAL.pdb
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.Models.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.Models.pdb
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.csproj.AssemblyReference.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.AssemblyInfoInputs.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.AssemblyInfo.cs
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.csproj.CoreCompileInputs.cache
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.csproj.CopyComplete
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\refint\PointOfSale.DAL.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.pdb
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\ref\PointOfSale.DAL.dll
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\bin\Debug\net6.0\PointOfSale.DAL.runtimeconfig.json
+C:\Users\alfre\source\repos\BasicPointOfSale\PointOfSale.DAL\obj\Debug\net6.0\PointOfSale.DAL.genruntimeconfig.cache
