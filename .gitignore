@@ -6,9 +6,9 @@
 /PointOfSale.DAL/obj
 /PointOfSale.Models/obj
 /BasicPointOfSale/appsettings.Development.json
-/BasicPointOfSale/bin/Release/net6.0
-/PointOfSale.BL/bin/Release/net6.0
-/PointOfSale.DAL/bin/Release/net6.0
-/PointOfSale.Models/bin/Release/net6.0
-/PointOfSale.BL/obj/Debug/net6.0/PointOfSale.BL.csproj.AssemblyReference.cache
-/PointOfSale.DAL/obj/Debug/net6.0/PointOfSale.DAL.csproj.AssemblyReference.cache
+/BasicPointOfSale/bin
+/PointOfSale.BL/bin
+/PointOfSale.DAL/bin
+/PointOfSale.Models/bin
+/PointOfSale.BL/obj
+/PointOfSale.DAL/obj
