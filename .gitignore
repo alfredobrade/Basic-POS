@@ -12,3 +12,5 @@
 /PointOfSale.Models/bin/Release/net6.0
 /PointOfSale.BL/obj/Debug/net6.0/PointOfSale.BL.csproj.AssemblyReference.cache
 /PointOfSale.DAL/obj/Debug/net6.0/PointOfSale.DAL.csproj.AssemblyReference.cache
+/PointOfSale.BL/bin/Debug/net6.0/PointOfSale.BL.dll
+/PointOfSale.BL/bin/Debug/net6.0/PointOfSale.BL.pdb
