@@ -40,9 +40,18 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Details/5
-        public async Task<ActionResult> TransactionDetails()
+        public async Task<ActionResult> TransactionDetails(int TransactionId)
         {
-            return View();
+            try
+            {
+                var model = await _transactionService.GetTransaction(TransactionId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: TransactionController/Create
@@ -144,10 +153,19 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Delete/5
-        public async Task<ActionResult> DeleteTransaction(int id)
+        public async Task<ActionResult> DeleteTransaction(int TransactionId)
         {
 
-            return View();
+            try
+            {
+                var model = await _transactionService.GetTransaction(TransactionId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: TransactionController/Delete/5

@@ -68,5 +68,19 @@ namespace PointOfSale.BL.Services
                 throw;
             }
         }
+
+        public async Task<Transaction> GetTransaction(int id)
+        {
+            try
+            {
+                var model = await _repository.Get(t => t.Id == id);
+                return model;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
