@@ -11,12 +11,14 @@ namespace BasicPointOfSale.Controllers
         private readonly ISaleService _service;
         private readonly IProductService _productService;
         private readonly ISaleProductService _spService;
+        private readonly ICashRegisterService _cashRegisterService;
 
-        public SaleHistoryController(ISaleService service, ISaleProductService spService, IProductService productService)
+        public SaleHistoryController(ISaleService service, ISaleProductService spService, IProductService productService, ICashRegisterService cashRegisterService)
         {
             _service = service;
             _spService = spService;
             _productService = productService;
+            _cashRegisterService = cashRegisterService;
         }
 
         // GET: SaleHistoryController
@@ -137,16 +139,20 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
+
                 var products = await _service.SaleDetail(model.Sale.Id);
                 if (products != null)
                 {
                     foreach (var item in products)
                     {
                         var product = await _productService.GetProduct(item.ProductId);
-                        item.Product.Stock += item.Quantity;
-                        await _productService.EditProduct(item.Product);
+                        product.Stock += item.Quantity;
+                        await _productService.EditProduct(product);
                     }
                 }
+                await _cashRegisterService.AddIncome((int)BusinessUnitId, model.Sale.Price);
                 var result = await _service.CancelSale(model.Sale.Id);
 
 
