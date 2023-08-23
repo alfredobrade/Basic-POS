@@ -39,15 +39,20 @@
 
                 @foreach (var item in Model)
                 {
-                <div class="card m-3" style="width: 22rem;">
-                    <img src="https://www.revistaareatres.com.ar/files/image/6/6457/633513990e1dc.jpg" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title font-weight-bolder">@item.Name</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus incidunt dicta quod alias neque aliquid doloribus sint!</p>
-                        <a class="btn btn-primary" asp-controller="BusinessUnit"
-                        asp-action="SelectBusiness" asp-route-BusinessUnitId="@item.Id">Ingresar</a>
+                <a class="text-decoration-none text-reset" asp-controller="BusinessUnit" asp-action="SelectBusiness"
+                    asp-route-BusinessUnitId="@item.Id">
+                    <div class="card m-3" style="width: 22rem; transition: ease-in-out 0.2s;"
+                        onmouseover="this.style.boxShadow='0px 2px 15px 0px black'"
+                        onmouseout="this.style.boxShadow='0 0 0 0'">
+                        <img src="https://www.revistaareatres.com.ar/files/image/6/6457/633513990e1dc.jpg"
+                            class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title font-weight-bolder">@item.Name</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                                incidunt dicta quod alias neque aliquid doloribus sint!</p>
+                        </div>
                     </div>
-                </div>
+                </a>
                 }
             </div>
 
