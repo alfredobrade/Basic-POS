@@ -1,13 +1,75 @@
-﻿@{
+﻿@model PointOfSale.Models.Transaction
+
+
+
+@{
     ViewData["Title"] = "DeleteTransaction";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container mt-3">
 
-<h1>DeleteTransaction</h1>
-    <div class="alert alert-warning">
-        <p>
-            Under Construction
-        </p>
+
+
+
+<form method="post" asp-action="DeleteTransaction" asp-controller="Transaction">
+    <input type="hidden" asp-for="BusinessUnitId" />
+    <input type="hidden" asp-for="Id" />
+
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Eliminar Producto</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="DateTime" class="form-label">Fecha</label>
+                    <input asp-for="DateTime" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Description" class="form-label">Descripción</label>
+                    <input asp-for="Description" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Amount" class="form-label">Monto</label>
+                    <input asp-for="Amount" class="form-control" readonly />
+                </div>
+            </div>
+            @*@if (Model.IsExpense == true)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="IsExpense" class="form-label">Gasto</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="IsExpense" class="form-label">Ingreso</label>
+                    </div>
+                </div>
+            }*@
+
+
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                <a asp-controller="Transaction" asp-action="Index" class="btn btn-outline-success">Regresar</a>
+
+            </div>
+        </div>
+
+
+
     </div>
-</div>
+
+</form>

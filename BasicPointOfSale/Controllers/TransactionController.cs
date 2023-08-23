@@ -40,7 +40,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Details/5
-        public async Task<ActionResult> TransactionDetails(int id)
+        public async Task<ActionResult> TransactionDetails()
         {
             return View();
         }
@@ -124,7 +124,8 @@ namespace BasicPointOfSale.Controllers
         // GET: TransactionController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            return RedirectToAction(nameof(Index));
+            //return View();
         }
 
         // POST: TransactionController/Edit/5
@@ -145,6 +146,7 @@ namespace BasicPointOfSale.Controllers
         // GET: TransactionController/Delete/5
         public async Task<ActionResult> DeleteTransaction(int id)
         {
+
             return View();
         }
 

@@ -62,6 +62,7 @@ namespace PointOfSale.BL.Services
         {
             try
             {
+
                 var sale = await _repository.Get(s => s.Id == saleId);
                 //sale.DateTime = DateTime.Now; Postgre no admite el mismo valor con zona horaria
                 sale.DateTime = DateTime.UtcNow.AddHours(-3); //le seteo como UTC y le agrego las horas de la zona horaria

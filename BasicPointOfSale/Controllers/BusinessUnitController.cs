@@ -110,7 +110,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var user = await _UserService.GetByEmail(_userEmail);
-
+                if (user == null) return RedirectToAction("Index", "BusinessUnit");
                 await _businessUnitService.NewBusinessUnit(user.Id ,model);
                 await _cashRegisterService.NewCashRegister(model.Id);
                 return RedirectToAction("Index","BusinessUnit");
@@ -122,7 +122,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: BusinessUnitController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             return View();
         }
@@ -130,7 +130,7 @@ namespace BasicPointOfSale.Controllers
         // POST: BusinessUnitController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: BusinessUnitController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             return View();
         }
@@ -151,7 +151,7 @@ namespace BasicPointOfSale.Controllers
         // POST: BusinessUnitController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
@@ -160,6 +160,21 @@ namespace BasicPointOfSale.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public async Task<ActionResult> ExitBusiness()
+        {
+            try
+            {
+                HttpContext.Session.Remove("BusinessUnitId");
+
+                return RedirectToAction("Index", "BusinessUnit");
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
