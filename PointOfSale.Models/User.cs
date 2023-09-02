@@ -14,9 +14,8 @@ namespace PointOfSale.Models
         public string? Email { get; set; }
         public string? Password { get; set; }
 
-        public int? Role { get; set; }
-
         
+        public ICollection<UserRole>? Roles { get; set; }
         public ICollection<UserBusinessUnit>? UserBusinessUnits { get; set; }
         
         public int? YakaAgentId { get; set; }

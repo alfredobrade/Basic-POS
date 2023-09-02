@@ -6,6 +6,7 @@ using PointOfSale.Models;
 using Microsoft.EntityFrameworkCore;
 using PointOfSale.BL.IServices;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BasicPointOfSale.Controllers
 {
@@ -48,6 +49,7 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
+        //[Authorize(Roles = "Admin,ActiveUser")]
         public async Task<IActionResult> SelectBusiness(int BusinessUnitId)
         {
             try

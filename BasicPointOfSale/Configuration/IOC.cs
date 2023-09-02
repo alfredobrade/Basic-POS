@@ -26,6 +26,7 @@ namespace BasicPointOfSale.Configuration
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<IBusinessUnitRepository, BusinessUnitRepository>();
             services.AddScoped<IProductService, ProductService>();

@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 namespace BasicPointOfSale.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

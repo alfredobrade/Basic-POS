@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PointOfSale.DAL.Context;
@@ -11,9 +12,11 @@ using PointOfSale.DAL.Context;
 namespace PointOfSale.DAL.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20230831181758_updateRoles2")]
+    partial class updateRoles2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,23 +57,6 @@ namespace PointOfSale.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusinessUnits");
-                });
-
-            modelBuilder.Entity("PointOfSale.Models.BusinessUnitRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BusinessUnitRole");
                 });
 
             modelBuilder.Entity("PointOfSale.Models.CashRegister", b =>
@@ -597,22 +583,14 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<int>("BusinessUnitId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("BURoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("integer");
-
                     b.HasKey("UserId", "BusinessUnitId");
 
                     b.HasIndex("BusinessUnitId");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("UserBusinessUnits");
                 });
 
-            modelBuilder.Entity("PointOfSale.Models.UserRole", b =>
+            modelBuilder.Entity("PointOfSale.Models.UserRoles", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -620,14 +598,8 @@ namespace PointOfSale.DAL.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("ExpirationDate")
+                    b.Property<DateTime?>("DateTime")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("InitialDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("NumMonths")
-                        .HasColumnType("integer");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -778,10 +750,6 @@ namespace PointOfSale.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PointOfSale.Models.BusinessUnitRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
-
                     b.HasOne("PointOfSale.Models.User", "User")
                         .WithMany("UserBusinessUnits")
                         .HasForeignKey("UserId")
@@ -790,12 +758,10 @@ namespace PointOfSale.DAL.Migrations
 
                     b.Navigation("BusinessUnit");
 
-                    b.Navigation("Role");
-
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PointOfSale.Models.UserRole", b =>
+            modelBuilder.Entity("PointOfSale.Models.UserRoles", b =>
                 {
                     b.HasOne("PointOfSale.Models.Role", "Role")
                         .WithMany("Users")

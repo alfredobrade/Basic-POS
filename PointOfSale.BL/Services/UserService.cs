@@ -11,8 +11,8 @@ namespace PointOfSale.BL.Services
 {
     public class UserService : IUserService
     {
-        private readonly IGenericRepository<User> _repository;
-        public UserService(IGenericRepository<User> repository)
+        private readonly IUserRepository _repository;
+        public UserService(IUserRepository repository)
         {
             _repository = repository;
         }
@@ -59,7 +59,16 @@ namespace PointOfSale.BL.Services
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _repository.Get(u => u.Email.Equals(email));
+            try
+            {
+                var user = await _repository.Get(u => u.Email.Equals(email));
+                return user;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public async Task<User> ValidateUser(string email, string password)
         {
@@ -67,6 +76,20 @@ namespace PointOfSale.BL.Services
             {
                 var user = await _repository.Get(u => u.Email == email && u.Password == password);
                 return user;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<UserRole>> GetUserRoles(int userId)
+        {
+            try
+            {
+                var roles = await _repository.GetUserRoles(userId);
+                return roles;
             }
             catch (Exception)
             {

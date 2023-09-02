@@ -12,5 +12,7 @@ namespace PointOfSale.Models
         public User User { get; set; }
         public int BusinessUnitId { get; set; }
         public BusinessUnit BusinessUnit { get; set; }
+        public int? BURoleId { get; set; }
+        public BusinessUnitRole? Role { get; set; }
     }
 }

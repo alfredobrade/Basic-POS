@@ -13,7 +13,7 @@ namespace BasicPointOfSale.Models
         public string Email { get; set; }
         public string? Password { get; set; }
 
-        public int? Role { get; set; }
+        public IEnumerable<UserRole>? Role { get; set; }
 
 
         public int? YakaAgent { get; set; }

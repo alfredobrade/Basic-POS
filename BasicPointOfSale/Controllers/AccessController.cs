@@ -28,7 +28,6 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                //DBInMemory dbUser = new DBInMemory();
                 //var dbUser = await _service.GetByEmail(user.Email);
                 var _user = await _service.ValidateUser(userVM.Email, userVM.Password);
 
@@ -40,27 +39,27 @@ namespace BasicPointOfSale.Controllers
                         new Claim(ClaimTypes.Name, _user.Name),
                         new Claim(ClaimTypes.Email, _user.Email)
                         //new Claim("Email" , user.Email), //asi se pone cuando es un nombre adicional que se agrega 
-
                     };
 
-
+                    var roles = await _service.GetUserRoles(_user.Id);
                     //se itera los roles porque tiene varios en este caso
-                    //foreach (string rol in user.Roles)
-                    //{
-                    //    claims.Add(new Claim(ClaimTypes.Role, rol));
-                    //}
+                    foreach (var rol in roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, rol.Role.Name));
+                    }
+
+                    //TODO: logica para verificar si el usuario esta activo
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
                     return RedirectToAction("Index", "BusinessUnit", new { UserId = _user.Id });
                 }
-
-                userVM.Email = userVM.Email + " es Incorrecto o no existe";//TODO: no funciona
-                userVM.UsersQtity = await _service.UsersQtity();
-
-                return View(userVM); //TODO: corregir esto
+                else
+                {
+                    userVM.Email = userVM.Email + " es Incorrecto o no existe";//TODO: no funciona
+                    userVM.UsersQtity = await _service.UsersQtity();
+                    return View(userVM); //TODO: corregir esto
+                }
             }
             catch (Exception)
             {
