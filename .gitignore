@@ -16,3 +16,5 @@
 /PointOfSale.BL/bin
 /.vs
 /BasicPointOfSale/Properties/PublishProfiles
+/PointOfSale.BL/obj/Debug/net6.0/PointOfSale.BL.csproj.AssemblyReference.cache
+/PointOfSale.DAL/obj/Debug/net6.0/PointOfSale.DAL.csproj.AssemblyReference.cache
