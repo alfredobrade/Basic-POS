@@ -12,8 +12,7 @@
 /PointOfSale.Models/bin
 /PointOfSale.BL/obj
 /PointOfSale.DAL/obj
-/.vs/ProjectEvaluation/basicpointofsale.metadata.v6.1
-/.vs/ProjectEvaluation/basicpointofsale.projects.v6.1
-/PointOfSale.BL/obj
-/PointOfSale.DAL/obj
-/PointOfSale.BL/obj/Debug/net6.0/PointOfSale.BL.csproj.AssemblyReference.cache
+/PointOfSale.BL/bin
+/PointOfSale.BL/bin
+/.vs
+/BasicPointOfSale/Properties/PublishProfiles

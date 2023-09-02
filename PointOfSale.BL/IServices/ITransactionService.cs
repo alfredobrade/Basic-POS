@@ -12,6 +12,7 @@ namespace PointOfSale.BL.IServices
         Task<Transaction> AddExpense(Transaction transaction);
         Task<Transaction> AddIncome(Transaction transaction);
         Task<IEnumerable<Transaction>> TransactionHistory(int BusinessUnitId, DateTime? date, string? description);
+        Task<Transaction> GetTransaction(int id);
     }
 }
 

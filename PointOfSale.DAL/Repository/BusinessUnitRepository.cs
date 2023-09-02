@@ -23,7 +23,9 @@ namespace PointOfSale.DAL.Repository
         {
             try
             {
-                var list = await _context.UserBusinessUnits.Include(b => b.BusinessUnit)
+                var list = await _context.UserBusinessUnits
+                    .Include(b => b.BusinessUnit)
+                    .Include(r => r.Role)
                     .Where(bu => bu.UserId == userId).ToListAsync();
                 return list;
             }
@@ -41,7 +43,8 @@ namespace PointOfSale.DAL.Repository
                 var userBusinessUnit = new UserBusinessUnit()
                 {
                     UserId = userId,
-                    BusinessUnitId = businessUnitId
+                    BusinessUnitId = businessUnitId,
+                    //RoleId = 3 //TODO: crear un metodo para modificar el rol
                 };
                 await _context.UserBusinessUnits.AddAsync(userBusinessUnit);
                 await _context.SaveChangesAsync();

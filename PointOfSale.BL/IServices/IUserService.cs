@@ -14,6 +14,7 @@ namespace PointOfSale.BL.IServices
         Task<bool> Delete(int id);
         Task<User> GetByEmail(string email);
         Task<User> ValidateUser(string email, string password);
+        Task<List<UserRole>> GetUserRoles(int userId);
         Task<int> UsersQtity();
     }
 }
