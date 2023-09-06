@@ -5,6 +5,7 @@ using PointOfSale.Models;
 using System.Security.Claims;
 using PointOfSale.BL.IServices;
 using BasicPointOfSale.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BasicPointOfSale.Controllers
 {
@@ -47,6 +48,7 @@ namespace BasicPointOfSale.Controllers
                     {
                         claims.Add(new Claim(ClaimTypes.Role, rol.Role.Name));
                     }
+                    
 
                     //TODO: logica para verificar si el usuario esta activo
 

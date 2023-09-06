@@ -56,7 +56,6 @@ namespace BasicPointOfSale.Controllers
             {
                 // Guardar el NegocioId en la sesión
                 HttpContext.Session.SetInt32("BusinessUnitId", BusinessUnitId); //TODO: manejar aca para que no venga vacio
-
                 // Redireccionar a la vista que desees mostrar después de seleccionar el negocio
                 return RedirectToAction("Index", "Home");
             }
