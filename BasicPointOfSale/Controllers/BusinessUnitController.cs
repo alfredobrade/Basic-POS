@@ -113,7 +113,8 @@ namespace BasicPointOfSale.Controllers
                 var user = await _UserService.GetByEmail(_userEmail);
                 if (user == null) return RedirectToAction("Index", "BusinessUnit");
                 await _businessUnitService.NewBusinessUnit(user.Id ,model);
-                await _cashRegisterService.NewCashRegister(model.Id);
+                //crating de basic cash register for money management
+                await _cashRegisterService.NewCashRegister(model.Id, "Cash");
                 return RedirectToAction("Index","BusinessUnit");
             }
             catch

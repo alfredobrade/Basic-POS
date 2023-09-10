@@ -28,7 +28,7 @@ namespace BasicPointOfSale.Controllers
                 var model = new TransactionListVM()
                 {
                     BusinessUnitId = BusinessUnitId,
-                    Transactions = list.OrderByDescending(s => s.DateTime).ToList()
+                    Transactions = list.OrderByDescending(s => s.DateTime).ToList() //TODO: inlcuir cash registers?
                 };
                 return View(model);
             }
@@ -54,7 +54,6 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
-        // GET: TransactionController/Create
         public async Task<ActionResult> NewExpense(int BusinessUnitId)
         {
             try
@@ -72,7 +71,6 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
-        // POST: TransactionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> NewExpense(Transaction transaction)

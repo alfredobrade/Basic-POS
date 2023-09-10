@@ -10,6 +10,8 @@ namespace PointOfSale.Models
     {
         public int Id { get; set; }
         public int BusinessUnitId { get; set; }
+        public int CashRegisterId { get; set; }
+        public CashRegister? CashRegister { get; set; }
         public BusinessUnit? BusinessUnit { get; set; }
 
         public DateTime? DateTime { get; set; }
