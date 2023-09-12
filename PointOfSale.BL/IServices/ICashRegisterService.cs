@@ -13,7 +13,7 @@ namespace PointOfSale.BL.IServices
         Task<CashRegister> AddIncome(int BusinessUnitId, decimal? price);
         Task<CashRegister> ViewCashRegister(int BusinessUnitId);
         Task<CashRegister> NewCashRegister(int BusinessUnitId, string name);
-
+        Task<List<CashRegister>> CashRegisterList(int BusinessUnitId);
 
     }
 }

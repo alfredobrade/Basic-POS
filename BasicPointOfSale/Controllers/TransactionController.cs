@@ -28,7 +28,7 @@ namespace BasicPointOfSale.Controllers
                 var model = new TransactionListVM()
                 {
                     BusinessUnitId = BusinessUnitId,
-                    Transactions = list.OrderByDescending(s => s.DateTime).ToList() //TODO: inlcuir cash registers?
+                    Transactions = list.OrderByDescending(s => s.DateTime).ToList() 
                 };
                 return View(model);
             }
@@ -58,9 +58,13 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                var cashRegisterList = await _cashRegisterService.CashRegisterList(BusinessUnitId);
+                //var cashRegisterNames = cashRegisterList.Select(n => n.Name);
+                ViewBag.CashRegisterList = cashRegisterList.ToList();
                 var model = new Transaction()
                 {
                     BusinessUnitId = BusinessUnitId
+
                 };
                 return View(model);
             }
@@ -77,12 +81,17 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (!transaction.Amount.HasValue) transaction.Amount = 0;
-                var amount = transaction.Amount;
-                var result = await _transactionService.AddExpense(transaction);
-                var cashRegister = await _cashRegisterService.AddExpense(transaction.BusinessUnitId, amount);
+                if (ModelState.IsValid)
+                {
+                    if (!transaction.Amount.HasValue) transaction.Amount = 0;
+                    //var amount = transaction.Amount;
+                    var result = await _transactionService.AddExpense(transaction);
+                    var cashRegister = await _cashRegisterService.AddExpense(transaction.BusinessUnitId, transaction.Amount);
 
-                return RedirectToAction("Index", "Transaction" );
+                    return RedirectToAction("Index", "Transaction");
+                }
+                return View(transaction);
+
             }
             catch
             {
