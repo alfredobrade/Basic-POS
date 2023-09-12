@@ -33,13 +33,30 @@
                 </div>
             </div>
             
-            @*<div class="row">
-            <div class="col-md-6">
-            <label asp-for="StockMin" class="form-label">StockMin</label>
-            <input asp-for="StockMin" class="form-control" />
-            <span asp-validation-for="StockMin" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="CashRegisterId" class="form-label">Caja</label>
+                    @*<select asp-for="CashRegisterId"  class="form-control" id="CashRegisterId" name="CashRegisterId">
+                    @foreach (var cashRegister in ViewBag.CashRegisterList)
+                    {
+                    <option value="@cashRegister">@cashRegister</option>
+                    }
+                    </select>*@
+                    @*<select asp-for="CashRegisterId" asp-items="@(new SelectList(ViewBag.CashRegisterList))"
+                    class="form-control">
+                    <option value="">Seleccione una CashRegister</option>
+                    </select>*@
+                    <select asp-for="CashRegisterId" class="form-control">
+                        <option value="">Seleccione una CashRegister</option>
+                        @foreach (var cashRegister in ViewBag.CashRegisterList)
+                        {
+                            <option value="@cashRegister.Id">@cashRegister.Name</option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="CashRegisterId" class="text-danger"></span>
+                </div>
             </div>
-            </div>*@
 
             <br />
             <div class="d-grid gap-2 d-md-block">

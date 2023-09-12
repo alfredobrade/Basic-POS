@@ -26,13 +26,13 @@
                     <span asp-validation-for="Sale.DateTime" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label asp-for="Sale.CustomerName" class="form-label">Cliente</label>
-                    <input asp-for="Sale.CustomerName" class="form-control" placeholder="Consumidor final"/>
-                    <span asp-validation-for="Sale.CustomerName" class="text-danger"></span>
-                </div>
-            </div>
+            <select asp-for="Sale.CustomerId" class="form-control">
+                <option value="">Consumidor Final?</option>
+                @foreach (var customer in ViewBag.Customers)
+                {
+                    <option value="@customer.Id">@customer.Name</option>
+                }
+            </select>
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Sale.Cost" class="form-label">Costo: @Model.Sale.Cost</label>

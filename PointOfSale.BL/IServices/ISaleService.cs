@@ -11,7 +11,7 @@ namespace PointOfSale.BL.IServices
     {
         Task<Sale> NewSale(int BusinessUnitId);
         Task<bool> AddProduct(long saleId, long productId, int quantity);
-        Task<Sale> CloseSale(long saleId, string customer);
+        Task<Sale> CloseSale(long saleId, int customerId);
         Task<bool> CancelSale(long saleId);
         Task<Sale> GetOpenSale(int? BusinessUnitId);
         Task<IEnumerable<SaleProduct>> SaleDetail(long saleId); //este queda aca porque sino hay que crear un repository mas

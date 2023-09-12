@@ -36,6 +36,7 @@ namespace BasicPointOfSale.Configuration
             services.AddScoped<ICashRegisterService, CashRegisterService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IBusinessUnitService, BusinessUnitService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
 
         }

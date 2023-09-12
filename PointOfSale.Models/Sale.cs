@@ -10,10 +10,8 @@ namespace PointOfSale.Models
     {
         public long Id { get; set; }
         public DateTime? DateTime { get; set; }
-        //public int? CustomerId { get; set; }
-        //public Customer? Customer { get; set; }
-        public string? CustomerName { get; set; }
-
+        public int? CustomerId { get; set; }
+        public Customer? Customer { get; set; }
         public decimal? Cost { get; set; }
         public decimal? Price { get; set; }
 

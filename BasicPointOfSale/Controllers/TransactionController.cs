@@ -104,6 +104,9 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                var cashRegisterList = await _cashRegisterService.CashRegisterList(BusinessUnitId);
+                //var cashRegisterNames = cashRegisterList.Select(n => n.Name);
+                ViewBag.CashRegisterList = cashRegisterList.ToList();
                 var model = new Transaction()
                 {
                     BusinessUnitId = BusinessUnitId
@@ -124,12 +127,17 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (!transaction.Amount.HasValue) transaction.Amount = 0;
-                var amount = transaction.Amount;
-                var result = await _transactionService.AddIncome(transaction);
-                var cashRegister = await _cashRegisterService.AddIncome(transaction.BusinessUnitId, amount);
+                if (ModelState.IsValid)
+                {
+                    if (!transaction.Amount.HasValue) transaction.Amount = 0;
+                    var amount = transaction.Amount;
+                    var result = await _transactionService.AddIncome(transaction);
+                    var cashRegister = await _cashRegisterService.AddIncome(transaction.BusinessUnitId, amount);
 
-                return RedirectToAction("Index", "Transaction");
+                    return RedirectToAction("Index", "Transaction");
+                }
+                return View(transaction);
+
             }
             catch
             {

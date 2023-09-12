@@ -1,14 +1,44 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BasicPointOfSale.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PointOfSale.DAL.IRepository;
 
 namespace BasicPointOfSale.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: CustomerController
-        public ActionResult Index()
+        private readonly ICustomerService _customerService;
+        public CustomerController(ICustomerService customerService)
         {
-            return View();
+            _customerService = customerService;
+        }
+
+        // GET: CustomerController
+        public async Task<ActionResult> Index(string? name)
+        {
+            try
+            {
+
+                var BusinessUnitId = (int)HttpContext.Session.GetInt32("BusinessUnitId");
+                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
+
+
+                var list = await _customerService.GetCustomerList(BusinessUnitId);
+
+                var model = new CustomerListVM()
+                {
+                    BusinessUnitId = BusinessUnitId,
+                    Customers = list.Where(c => c.Name == name)
+                };
+                
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: CustomerController/Details/5

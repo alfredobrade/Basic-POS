@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PointOfSale.BL.IServices;
 using PointOfSale.BL.Services;
+using PointOfSale.DAL.IRepository;
 using PointOfSale.Models;
 
 namespace BasicPointOfSale.Controllers
@@ -13,13 +14,15 @@ namespace BasicPointOfSale.Controllers
         private readonly IProductService _productService;
         private readonly ISaleProductService _spService;
         private readonly ICashRegisterService _cashRegisterService;
+        private readonly ICustomerService _customerService;
 
-        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService, ICashRegisterService cashRegisterService)
+        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService, ICashRegisterService cashRegisterService, ICustomerService customerService)
         {
             _service = service;
             _spService = spService;
             _cashRegisterService = cashRegisterService;
             _productService = productService;
+            _customerService = customerService;
         }
         // GET: SaleController
         public ActionResult Index()
@@ -45,6 +48,9 @@ namespace BasicPointOfSale.Controllers
                 {
                     BusinessUnitId = BusinessUnitId,
                 };
+
+                var customers = await _customerService.GetCustomerList(BusinessUnitId);
+                ViewBag.Customers = customers.ToList();
 
                 var openSale = await _service.GetOpenSale(BusinessUnitId);
                 if (openSale != null)
@@ -79,8 +85,8 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (saleVM.Sale.CustomerName == null) saleVM.Sale.CustomerName = "Consumidor final";
-                var sale = await _service.CloseSale(saleVM.Sale.Id, saleVM.Sale.CustomerName);
+                if (saleVM.Sale.CustomerId == null) saleVM.Sale.CustomerId = 0;
+                var sale = await _service.CloseSale(saleVM.Sale.Id, (int)saleVM.Sale.CustomerId);
 
                 var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);
                 
