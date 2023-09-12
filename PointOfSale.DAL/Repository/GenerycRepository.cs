@@ -20,13 +20,21 @@ namespace PointOfSale.DAL.Repository
             _context = context;
         }
 
-        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter)
+        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter, string properties = "")
         {
             try
             {
-                TEntity entity = await _context.Set<TEntity>().FirstOrDefaultAsync(filter);
+                //TEntity entity = await _context.Set<TEntity>().FirstOrDefaultAsync(filter);
+                var entity = _context.Set<TEntity>().AsQueryable();
+                if (!string.IsNullOrWhiteSpace(properties)) 
+                {
+                    foreach (var item in properties.Split(','))
+                    {
+                        entity = entity.Include(item);
+                    }
+                }
 
-                return entity;
+                return await entity.FirstOrDefaultAsync(filter);
             }
             catch (Exception)
             {
@@ -35,16 +43,32 @@ namespace PointOfSale.DAL.Repository
             }
         }
 
-        public async Task<IEnumerable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<IEnumerable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null, string properties = "")
         {
             try
             {
-                IQueryable<TEntity> queryEntity = filter == null ?
-                    _context.Set<TEntity>() :
-                    _context.Set<TEntity>().Where(filter);
-                await _context.SaveChangesAsync(); //TODO: esto esta mal
+                //IQueryable<TEntity> entityList = filter == null ?
+                //    _context.Set<TEntity>() :
+                //    _context.Set<TEntity>().Where(filter);
+                //await _context.SaveChangesAsync(); //TODO: esto esta mal
 
-                return queryEntity.ToList(); //.AsQueryable()
+                var entityList = _context.Set<TEntity>().AsQueryable();
+                if (!string.IsNullOrWhiteSpace(properties))
+                {
+                    foreach (var item in properties.Split(","))
+                    {
+                        entityList = entityList.Include(item);
+                    }
+                }
+
+                if (filter != null)
+                {
+                    return await entityList.Where(filter).ToListAsync();
+                }
+                return await entityList.ToListAsync();
+
+
+                //return entityList.ToList(); //.AsQueryable()
             }
             catch (Exception)
             {

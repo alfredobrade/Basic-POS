@@ -57,16 +57,17 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                //var list = await _repository.GetList(t => t.BusinessUnitId == BusinessUnitId && t.DateTime.HasValue);
-                var list = await _context.Transactions
-                    .Include(c => c.CashRegister)
-                    .Where(t => t.BusinessUnitId == BusinessUnitId && t.DateTime.HasValue)
-                    .ToListAsync(); //TODO: usando context y tuve que poner ToList en todos lados
+                var list = await _repository.GetList(t => t.BusinessUnitId == BusinessUnitId && t.DateTime.HasValue, "CashRegister");
 
-                if (date.HasValue && date.Value != DateTime.MinValue) list = list.Where(t => t.DateTime.Value.Date == date.Value.Date).ToList();
+                //var list = await _context.Transactions
+                //    .Include(c => c.CashRegister)
+                //    .Where(t => t.BusinessUnitId == BusinessUnitId && t.DateTime.HasValue)
+                //    .ToListAsync(); //TODO: usando context y tuve que poner ToList en todos lados
+
+                if (date.HasValue && date.Value != DateTime.MinValue) list = list.Where(t => t.DateTime.Value.Date == date.Value.Date);
                 if (!String.IsNullOrEmpty(description))
                 {
-                    list = list.Where(t => t.Description != null && t.Description.ToLower().Contains(description.ToLower())).ToList();
+                    list = list.Where(t => t.Description != null && t.Description.ToLower().Contains(description.ToLower()));
                 }
 
                 return list;
@@ -82,10 +83,11 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                //var model = await _repository.Get(t => t.Id == id);
-                var model = await _context.Transactions
-                    .Include(c => c.CashRegister)
-                    .Where(c => c.Id == id).FirstOrDefaultAsync(); //TODO: usando context
+                var model = await _repository.Get(t => t.Id == id, "CashRegister");
+
+                //var model = await _context.Transactions
+                //    .Include(c => c.CashRegister)
+                //    .Where(c => c.Id == id).FirstOrDefaultAsync(); //TODO: usando context
                 return model;
             }
             catch (Exception)
