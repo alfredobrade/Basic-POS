@@ -114,7 +114,7 @@ namespace BasicPointOfSale.Controllers
                 if (user == null) return RedirectToAction("Index", "BusinessUnit");
                 await _businessUnitService.NewBusinessUnit(user.Id ,model);
                 //crating de basic cash register for money management
-                await _cashRegisterService.NewCashRegister(model.Id, "Cash");
+                await _cashRegisterService.NewCashRegister(model.Id, "Efectivo");
                 return RedirectToAction("Index","BusinessUnit");
             }
             catch
