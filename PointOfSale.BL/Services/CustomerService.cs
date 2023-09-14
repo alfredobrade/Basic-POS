@@ -1,4 +1,5 @@
-﻿using PointOfSale.DAL.IRepository;
+﻿using PointOfSale.BL.IServices;
+using PointOfSale.DAL.IRepository;
 using PointOfSale.Models;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,25 @@ namespace PointOfSale.BL.Services
             try
             {
                 var result = await _repository.Create(customer);
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public Task<bool> UpdateCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteCustomer(Customer customer)
+        {
+            try
+            {
+                var result = await _repository.Delete(customer);
                 return result;
             }
             catch (Exception)

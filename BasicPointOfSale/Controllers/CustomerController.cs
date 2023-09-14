@@ -1,7 +1,11 @@
 ﻿using BasicPointOfSale.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PointOfSale.DAL.IRepository;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PointOfSale.BL.IServices;
+using PointOfSale.BL.Services;
+using PointOfSale.Models;
 
 namespace BasicPointOfSale.Controllers
 {
@@ -24,11 +28,12 @@ namespace BasicPointOfSale.Controllers
 
 
                 var list = await _customerService.GetCustomerList(BusinessUnitId);
+                if (name != null) list = list.Where(c => c.Name.ToLower().Contains(name.ToLower()));
 
                 var model = new CustomerListVM()
                 {
                     BusinessUnitId = BusinessUnitId,
-                    Customers = list.Where(c => c.Name == name)
+                    Customers = list
                 };
                 
 
@@ -42,34 +47,52 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             return View();
         }
 
         // GET: CustomerController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> NewCustomer(int BusinessUnitId)
         {
-            return View();
+            try
+            {
+                var customer = new Customer()
+                {
+                    BusinessUnitId = BusinessUnitId
+                };
+
+                return View(customer);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> NewCustomer(Customer customer)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var result = await _customerService.CreateCustomer(customer); 
+                }
+
+                return RedirectToAction("Index","Customer");
             }
             catch
             {
-                return View();
+                return View(customer);
             }
         }
 
         // GET: CustomerController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             return View();
         }
@@ -77,7 +100,7 @@ namespace BasicPointOfSale.Controllers
         // POST: CustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -90,23 +113,36 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: CustomerController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int CustomerId)
         {
-            return View();
+            try
+            {
+                var customer = await _customerService.GetCustomer(CustomerId);
+                return View(customer);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Customer customer)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                if (customer.Id != 0) await _customerService.DeleteCustomer(customer);
+
+                return RedirectToAction("Index", "Customer");
             }
             catch
             {
-                return View();
+                return View(customer);
+
             }
         }
     }
