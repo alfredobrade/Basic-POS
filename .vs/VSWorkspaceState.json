@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BasicPointOfSale"
   ],
-  "PreviewInSolutionExplorer": false
+  "SelectedNode": "\\BasicPointOfSale\\BasicPointOfSale.csproj",
+  "PreviewInSolutionExplorer": true
 }

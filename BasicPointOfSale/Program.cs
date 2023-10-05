@@ -18,9 +18,9 @@ builder.Services.DependencyInyection(builder.Configuration); //para inyectar las
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
     {
-        option.LoginPath = "/Access/Index";
+        option.LoginPath = "/Access/Login";
         option.ExpireTimeSpan = TimeSpan.FromHours(4);
-        option.AccessDeniedPath = "/Access/Index";
+        option.AccessDeniedPath = "/Access/Login";
 
     });
 builder.Services.AddHttpContextAccessor();
