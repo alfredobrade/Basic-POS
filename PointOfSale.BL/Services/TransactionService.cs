@@ -70,6 +70,7 @@ namespace PointOfSale.BL.Services
                     list = list.Where(t => t.Description != null && t.Description.ToLower().Contains(description.ToLower()));
                 }
 
+                
                 return list;
             }
             catch (Exception)

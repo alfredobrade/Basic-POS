@@ -16,8 +16,13 @@ namespace BasicPointOfSale.Controllers
         {
             _service = service;
         }
-
         public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+
+        public async Task<IActionResult> Login()
         {
             var userVM = new UserVM();
             userVM.UsersQtity = await _service.UsersQtity();
@@ -25,7 +30,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(UserVM userVM)
+        public async Task<IActionResult> Login(UserVM userVM)
         {
             try
             {
