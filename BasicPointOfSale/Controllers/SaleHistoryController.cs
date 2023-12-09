@@ -12,13 +12,19 @@ namespace BasicPointOfSale.Controllers
         private readonly IProductService _productService;
         private readonly ISaleProductService _spService;
         private readonly ICashRegisterService _cashRegisterService;
+        private readonly ICustomerService _customerService;
 
-        public SaleHistoryController(ISaleService service, ISaleProductService spService, IProductService productService, ICashRegisterService cashRegisterService)
+        public SaleHistoryController(ISaleService service, 
+            ISaleProductService spService,
+            IProductService productService,
+            ICashRegisterService cashRegisterService,
+            ICustomerService customerService)
         {
             _service = service;
             _spService = spService;
             _productService = productService;
             _cashRegisterService = cashRegisterService;
+            _customerService = customerService;
         }
 
         // GET: SaleHistoryController
@@ -26,17 +32,23 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                var BusinessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
-                if (BusinessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
+                var businessUnitId = HttpContext.Session.GetInt32("BusinessUnitId");
+                if (businessUnitId == null) return RedirectToAction("Index", "BusinessUnit");
 
                 //if (date.Year < 2000) date = null;
-                var list = await _service.GetSaleList(BusinessUnitId, date, customer);
+                var sales = await _service.GetSaleList(businessUnitId, date, customer);
 
+                //TODO: Falta la lista de nombres de los clientes
+                //var customers = _customerService.GetCustomerList((int)businessUnitId);
+                foreach ( var item in sales)
+                {
+                    item.Customer = await _customerService.GetCustomer((int)item.CustomerId);
+                }
 
                 var model = new SaleListVM()
                 {
-                    BusinessUnitId = (int)BusinessUnitId,
-                    Sales = list.OrderByDescending(s => s.DateTime).ToList()
+                    BusinessUnitId = (int)businessUnitId,
+                    Sales = sales.OrderByDescending(s => s.DateTime).ToList()
                 };
 
                 return View(model);

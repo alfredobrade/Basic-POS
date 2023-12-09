@@ -16,7 +16,11 @@ namespace BasicPointOfSale.Controllers
         private readonly ICashRegisterService _cashRegisterService;
         private readonly ICustomerService _customerService;
 
-        public SaleController(ISaleService service, IProductService productService, ISaleProductService spService, ICashRegisterService cashRegisterService, ICustomerService customerService)
+        public SaleController(ISaleService service, 
+            IProductService productService, 
+            ISaleProductService spService, 
+            ICashRegisterService cashRegisterService, 
+            ICustomerService customerService)
         {
             _service = service;
             _spService = spService;
