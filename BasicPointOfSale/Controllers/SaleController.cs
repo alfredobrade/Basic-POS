@@ -85,7 +85,8 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (saleVM.Sale.CustomerId == null) saleVM.Sale.CustomerId = 0;
+                if (saleVM.Sale.CustomerId == null) saleVM.Sale.CustomerId = 0; //TODO: problema cuando no hay clientes.. salta en el viewbag del front
+                //TODO: hacer un script para que cuando se inicia se cree el primer cliente
                 var sale = await _service.CloseSale(saleVM.Sale.Id, (int)saleVM.Sale.CustomerId);
 
                 var cashRegister = await _cashRegisterService.AddIncome(saleVM.BusinessUnitId, sale.Price);
