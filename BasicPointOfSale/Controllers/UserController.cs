@@ -41,8 +41,8 @@ namespace BasicPointOfSale.Controllers
                 {
                     var user = new User()
                     {
-                        Email = userVM.Email,
-                        Name = userVM.Name,
+                        Email = userVM.Email.ToLower().Trim(), //el email se almacena en lowercase y sin espacios a los lados
+                        Name = userVM.Name.ToLower().Trim(),
                         Password = userVM.Password
                     };
 
