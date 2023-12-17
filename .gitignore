@@ -20,3 +20,5 @@
 /PointOfSale.DAL/obj/Debug/net6.0/PointOfSale.DAL.csproj.AssemblyReference.cache
 /.vs/slnx.sqlite
 /Backup
+/DBScripts/bin/Debug/net6.0
+/DBScripts/obj
