@@ -29,12 +29,12 @@ DbContextOptions<POSContext> dbContextOptions = new DbContextOptionsBuilder<POSC
 using (POSContext context = new POSContext(dbContextOptions))
 {
     // Crea una instancia de ContextConection utilizando POSContext
-    ContextConection contextConnection = new ContextConection(context);
+    ContextConnection contextConnection = new ContextConnection(context);
 
     // Llama al método SalesDBUpdate
-    await contextConnection.SalesDBUpdate();
+    var updates = contextConnection.DBUpdates();
 
     // Haz algo con el resultado si es necesario
-    //Console.WriteLine($"Se realizaron {actualizaciones} actualizaciones en la base de datos.");
+    Console.WriteLine($"Se realizaron {updates} actualizaciones en la base de datos.");
 }
 Console.ReadLine();

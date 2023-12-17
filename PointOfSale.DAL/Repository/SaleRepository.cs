@@ -55,6 +55,7 @@ namespace PointOfSale.DAL.Repository
                     DateTime = null,
                     Cost = 0,
                     Price = 0,
+                    CustomerId = 0 //setting default customer
                 };
                 await _context.Sales.AddAsync(newSale);
                 await _context.SaveChangesAsync();

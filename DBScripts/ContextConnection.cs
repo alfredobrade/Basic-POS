@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DBScripts
 {
-    public class ContextConection
+    public class ContextConnection
     {
         private readonly POSContext _context;
         private int _index;
 
-        public ContextConection(POSContext context)
+        public ContextConnection(POSContext context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace DBScripts
                 _index = 0;
 
                 //procesos a realizar
-
+                SalesDBUpdate();
 
 
                 //exposicion de la cantidad de modificaciones realizadas
