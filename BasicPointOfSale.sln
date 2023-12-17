@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale.BL", "PointOfSa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale.Models", "PointOfSale.Models\PointOfSale.Models.csproj", "{BB528197-E916-4198-844C-C9CE34379A2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBScripts", "DBScripts\DBScripts.csproj", "{1AC8DBAD-77EA-42DD-A78E-7BE71ECC5D90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{BB528197-E916-4198-844C-C9CE34379A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB528197-E916-4198-844C-C9CE34379A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB528197-E916-4198-844C-C9CE34379A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC8DBAD-77EA-42DD-A78E-7BE71ECC5D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC8DBAD-77EA-42DD-A78E-7BE71ECC5D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC8DBAD-77EA-42DD-A78E-7BE71ECC5D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC8DBAD-77EA-42DD-A78E-7BE71ECC5D90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
