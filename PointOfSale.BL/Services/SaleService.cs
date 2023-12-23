@@ -58,14 +58,15 @@ namespace PointOfSale.BL.Services
             }
         }
 
-        public async Task<Sale> CloseSale(long saleId, string customer)
+        public async Task<Sale> CloseSale(long saleId, int customerId)
         {
             try
             {
+
                 var sale = await _repository.Get(s => s.Id == saleId);
                 //sale.DateTime = DateTime.Now; Postgre no admite el mismo valor con zona horaria
                 sale.DateTime = DateTime.UtcNow.AddHours(-3); //le seteo como UTC y le agrego las horas de la zona horaria
-                sale.CustomerName = customer;
+                sale.CustomerId = customerId;
                 //otros
 
                 var saleProduct = await _repository.GetSaleDetail(saleId);
@@ -166,7 +167,7 @@ namespace PointOfSale.BL.Services
                 if (date.HasValue && date.Value != DateTime.MinValue) saleList = saleList.Where(s => s.DateTime.Value.Date == date.Value.Date);
                 if (!String.IsNullOrEmpty(customer))
                 {
-                    saleList = saleList.Where(s => s.CustomerName != null && s.CustomerName.ToLower().Contains(customer.ToLower()));
+                    saleList = saleList.Where(s => s.Customer.Name != null && s.Customer.Name.ToLower().Contains(customer.ToLower()));
                 }
 
 

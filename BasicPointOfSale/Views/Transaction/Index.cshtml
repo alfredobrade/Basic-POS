@@ -45,8 +45,8 @@
                     <th>Descripción</th>
                     @*<th>Marca</th>*@
                     <th>Monto</th>
-                    @*<th>Precio</th>
-                <th>Profit</th>*@
+                    <th>Caja</th>
+                    @*<th>Profit</th>*@
                     <th></th>
                 </tr>
             </thead>
@@ -59,8 +59,8 @@
                         <th width="15%">@item.Description</th>
                         @*<th width="10%">@item.</th>*@
                         <th width="10%">@item.Amount</th>
-                        @*<th width="10%">@item.Price</th>
-                <th width="10%">@(item.Price - item.Cost)</th>*@
+                        <th width="10%">@(item.CashRegister?.Name ?? string.Empty)</th>
+                        @*<th width="10%">@(item.Price - item.Cost)</th>*@
                         <th class="text-center">
                             <div width="30" class="w-75 btn-group" role="group">
                                 <a asp-controller="Transaction" asp-action="TransactionDetails" asp-route-TransactionId="@item.Id" class="btn btn-outline-secondary mx-2">

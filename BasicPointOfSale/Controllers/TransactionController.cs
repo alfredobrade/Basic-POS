@@ -28,7 +28,7 @@ namespace BasicPointOfSale.Controllers
                 var model = new TransactionListVM()
                 {
                     BusinessUnitId = BusinessUnitId,
-                    Transactions = list.OrderByDescending(s => s.DateTime).ToList()
+                    Transactions = list.OrderByDescending(s => s.DateTime).ToList() 
                 };
                 return View(model);
             }
@@ -40,19 +40,31 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Details/5
-        public async Task<ActionResult> TransactionDetails(int id)
+        public async Task<ActionResult> TransactionDetails(int TransactionId)
         {
-            return View();
+            try
+            {
+                var model = await _transactionService.GetTransaction(TransactionId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        // GET: TransactionController/Create
         public async Task<ActionResult> NewExpense(int BusinessUnitId)
         {
             try
             {
+                var cashRegisterList = await _cashRegisterService.CashRegisterList(BusinessUnitId);
+                //var cashRegisterNames = cashRegisterList.Select(n => n.Name);
+                ViewBag.CashRegisterList = cashRegisterList.ToList();
                 var model = new Transaction()
                 {
                     BusinessUnitId = BusinessUnitId
+
                 };
                 return View(model);
             }
@@ -63,19 +75,25 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
-        // POST: TransactionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> NewExpense(Transaction transaction)
         {
             try
             {
-                if (!transaction.Amount.HasValue) transaction.Amount = 0;
-                var amount = transaction.Amount;
-                var result = await _transactionService.AddExpense(transaction);
-                var cashRegister = await _cashRegisterService.AddExpense(transaction.BusinessUnitId, amount);
+                if (ModelState.IsValid)
+                {
+                    //inicializando la cashregister
+                    if (!transaction.Amount.HasValue) transaction.Amount = 0; //TODO: esta validacion debería estar en la view o un required en la entidad
+                    //var amount = transaction.Amount;
+                    var result = await _transactionService.AddExpense(transaction); //crea una transaccion y esta funcionando
 
-                return RedirectToAction("Index", "Transaction" );
+                    var cashRegister = await _cashRegisterService.AddExpense(transaction.BusinessUnitId, transaction.Amount);
+
+                    return RedirectToAction("Index", "Transaction");
+                }
+                return View(transaction);
+
             }
             catch
             {
@@ -88,6 +106,9 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
+                var cashRegisterList = await _cashRegisterService.CashRegisterList(BusinessUnitId);
+                //var cashRegisterNames = cashRegisterList.Select(n => n.Name);
+                ViewBag.CashRegisterList = cashRegisterList.ToList();
                 var model = new Transaction()
                 {
                     BusinessUnitId = BusinessUnitId
@@ -108,12 +129,17 @@ namespace BasicPointOfSale.Controllers
         {
             try
             {
-                if (!transaction.Amount.HasValue) transaction.Amount = 0;
-                var amount = transaction.Amount;
-                var result = await _transactionService.AddIncome(transaction);
-                var cashRegister = await _cashRegisterService.AddIncome(transaction.BusinessUnitId, amount);
+                if (ModelState.IsValid)
+                {
+                    if (!transaction.Amount.HasValue) transaction.Amount = 0;
+                    var amount = transaction.Amount;
+                    var result = await _transactionService.AddIncome(transaction);
+                    var cashRegister = await _cashRegisterService.AddIncome(transaction.BusinessUnitId, amount);
 
-                return RedirectToAction("Index", "Transaction");
+                    return RedirectToAction("Index", "Transaction");
+                }
+                return View(transaction);
+
             }
             catch
             {
@@ -124,7 +150,8 @@ namespace BasicPointOfSale.Controllers
         // GET: TransactionController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            return RedirectToAction(nameof(Index));
+            //return View();
         }
 
         // POST: TransactionController/Edit/5
@@ -143,9 +170,19 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: TransactionController/Delete/5
-        public async Task<ActionResult> DeleteTransaction(int id)
+        public async Task<ActionResult> DeleteTransaction(int TransactionId)
         {
-            return View();
+
+            try
+            {
+                var model = await _transactionService.GetTransaction(TransactionId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: TransactionController/Delete/5

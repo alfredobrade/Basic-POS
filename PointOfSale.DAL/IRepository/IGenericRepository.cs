@@ -9,8 +9,8 @@ namespace PointOfSale.DAL.IRepository
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        Task<TEntity> Get(Expression<Func<TEntity, bool>> filter);
-        Task<IEnumerable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null);
+        Task<TEntity> Get(Expression<Func<TEntity, bool>> filter, string properties = "");
+        Task<IEnumerable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null, string properties = "");
         Task<TEntity> Create(TEntity entity);
         Task<bool> Edit(TEntity entity);
         Task<bool> Delete(TEntity entity);

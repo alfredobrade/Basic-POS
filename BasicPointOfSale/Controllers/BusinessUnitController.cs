@@ -6,6 +6,7 @@ using PointOfSale.Models;
 using Microsoft.EntityFrameworkCore;
 using PointOfSale.BL.IServices;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BasicPointOfSale.Controllers
 {
@@ -48,13 +49,13 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
+        //[Authorize(Roles = "Admin,ActiveUser")]
         public async Task<IActionResult> SelectBusiness(int BusinessUnitId)
         {
             try
             {
                 // Guardar el NegocioId en la sesión
                 HttpContext.Session.SetInt32("BusinessUnitId", BusinessUnitId); //TODO: manejar aca para que no venga vacio
-
                 // Redireccionar a la vista que desees mostrar después de seleccionar el negocio
                 return RedirectToAction("Index", "Home");
             }
@@ -110,9 +111,10 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 var user = await _UserService.GetByEmail(_userEmail);
-
+                if (user == null) return RedirectToAction("Index", "BusinessUnit");
                 await _businessUnitService.NewBusinessUnit(user.Id ,model);
-                await _cashRegisterService.NewCashRegister(model.Id);
+                //crating de basic cash register for money management
+                await _cashRegisterService.NewCashRegister(model.Id, "Efectivo");
                 return RedirectToAction("Index","BusinessUnit");
             }
             catch
@@ -122,7 +124,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: BusinessUnitController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             return View();
         }
@@ -130,7 +132,7 @@ namespace BasicPointOfSale.Controllers
         // POST: BusinessUnitController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -143,7 +145,7 @@ namespace BasicPointOfSale.Controllers
         }
 
         // GET: BusinessUnitController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             return View();
         }
@@ -151,7 +153,7 @@ namespace BasicPointOfSale.Controllers
         // POST: BusinessUnitController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
@@ -160,6 +162,21 @@ namespace BasicPointOfSale.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public async Task<ActionResult> ExitBusiness()
+        {
+            try
+            {
+                HttpContext.Session.Remove("BusinessUnitId");
+
+                return RedirectToAction("Index", "BusinessUnit");
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

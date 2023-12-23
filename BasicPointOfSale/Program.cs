@@ -9,18 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
 {
     // Configurar las opciones de sesión según tus necesidades
-    options.IdleTimeout = TimeSpan.FromDays(1);
+    options.IdleTimeout = TimeSpan.FromHours(4);
 });
 
 builder.Services.AddControllersWithViews();
-
 builder.Services.DependencyInyection(builder.Configuration); //para inyectar las dependencias desde otra clase
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
     {
-        option.LoginPath = "/Access/Index";
-        option.ExpireTimeSpan = TimeSpan.FromDays(1);
-        option.AccessDeniedPath = "/Home/Privacy";
+        option.LoginPath = "/Access/Login";
+        option.ExpireTimeSpan = TimeSpan.FromHours(4);
+        option.AccessDeniedPath = "/Access/Login";
 
     });
 builder.Services.AddHttpContextAccessor();
@@ -41,9 +41,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 //use session
 app.UseSession();
 

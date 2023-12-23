@@ -19,7 +19,7 @@ namespace PointOfSale.BL.Services
             _repository = repository;
         }
 
-        public async Task<CashRegister> NewCashRegister(int BusinessUnitId)
+        public async Task<CashRegister> NewCashRegister(int BusinessUnitId, string name)
         {
             try
             {
@@ -27,6 +27,7 @@ namespace PointOfSale.BL.Services
                 {
                     BusinessUnitId = BusinessUnitId,
                     Amount = 0,
+                    Name = name
                 };
                 cashRegister = await _repository.Create(cashRegister);
                 return cashRegister;
@@ -41,9 +42,10 @@ namespace PointOfSale.BL.Services
         {
             try
             {
+                // traemos la cashregister de ese businessunit pero solo la de efectivo
                 var cashRegister = await _repository.Get(cr => cr.BusinessUnitId == BusinessUnitId);
                 
-                cashRegister.Amount -= price;
+                cashRegister.Amount -= price; //TODO: el precio entra negativo porque transaction.amount ya viene negativo
                 await _repository.Edit(cashRegister);
                 return cashRegister;
             }
@@ -76,6 +78,20 @@ namespace PointOfSale.BL.Services
             {
                 var cashRegister = await _repository.Get(cr => cr.BusinessUnitId == BusinessUnitId);
                 return cashRegister;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<CashRegister>> CashRegisterList(int BusinessUnitId)
+        {
+            try
+            {
+                var cashRegister = await _repository.GetList(cr => cr.BusinessUnitId == BusinessUnitId);
+                return cashRegister.ToList();
             }
             catch (Exception)
             {

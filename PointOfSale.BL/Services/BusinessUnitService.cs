@@ -29,7 +29,7 @@ namespace PointOfSale.BL.Services
                     var model = new BusinessUnit()
                     {
                         Id = item.BusinessUnitId,
-                        Name = item.BusinessUnit.Name
+                        Name = item.BusinessUnit.Name,
                     };
                     result.Add(model);
                 }

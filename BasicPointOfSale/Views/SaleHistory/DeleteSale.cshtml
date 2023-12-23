@@ -24,8 +24,8 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="Sale.CustomerName" class="form-label">Cliente</label>
-                    <input asp-for="Sale.CustomerName" class="form-control" readonly />
+                    <label asp-for="Sale.CustomerId" class="form-label">Cliente</label>
+                    <input asp-for="Sale.CustomerId" class="form-control" readonly />
                 </div>
             </div>
             <div class="row">
@@ -50,7 +50,7 @@
             </div>*@
             <br />
             <div class="d-grid gap-2 d-md-block">
-                <button type="submit" class="btn btn-outline-secondary">Eliminar</button>
+                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                 <a asp-controller="SaleHistory" asp-action="Index" class="btn btn-outline-success">Regresar</a>
 
             </div>

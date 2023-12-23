@@ -29,6 +29,8 @@ namespace PointOfSale.DAL.Context
         public DbSet<User> Users { get; set; }
         public DbSet<BusinessUnit> BusinessUnits { get; set; }
         public DbSet<UserBusinessUnit> UserBusinessUnits { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UsersRoles { get; set; }
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<CashRegister> CashRegisters { get; set; }
@@ -95,6 +97,18 @@ namespace PointOfSale.DAL.Context
                 .HasOne(p => p.BusinessUnit)
                 .WithMany(sp => sp.UserBusinessUnits)
                 .HasForeignKey(p => p.BusinessUnitId);
+            
+            //UserBusinessUnit
+            modelBuilder.Entity<UserRole>()
+                .HasKey(sp => new { sp.UserId, sp.RoleId });
+            modelBuilder.Entity<UserRole>()
+                .HasOne(s => s.User)
+                .WithMany(sp => sp.Roles)
+                .HasForeignKey(s => s.UserId);
+            modelBuilder.Entity<UserRole>()
+                .HasOne(p => p.Role)
+                .WithMany(sp => sp.Users)
+                .HasForeignKey(p => p.RoleId);
         }
     }
 }
