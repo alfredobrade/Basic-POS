@@ -35,7 +35,7 @@ namespace BasicPointOfSale.Controllers
             try
             {
                 //TODO: verificar que el mail del usuario se pase a minuscula
-                userVM.Email.ToLower().Trim();
+                userVM.Email = userVM.Email.ToLower().Trim();
 
 
                 //var dbUser = await _service.GetByEmail(user.Email);

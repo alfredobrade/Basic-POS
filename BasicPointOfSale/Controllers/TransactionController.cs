@@ -83,9 +83,11 @@ namespace BasicPointOfSale.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!transaction.Amount.HasValue) transaction.Amount = 0;
+                    //inicializando la cashregister
+                    if (!transaction.Amount.HasValue) transaction.Amount = 0; //TODO: esta validacion debería estar en la view o un required en la entidad
                     //var amount = transaction.Amount;
-                    var result = await _transactionService.AddExpense(transaction);
+                    var result = await _transactionService.AddExpense(transaction); //crea una transaccion y esta funcionando
+
                     var cashRegister = await _cashRegisterService.AddExpense(transaction.BusinessUnitId, transaction.Amount);
 
                     return RedirectToAction("Index", "Transaction");

@@ -22,14 +22,25 @@ namespace PointOfSale.BL.Services
             _context = context;
         }
 
-        public async Task<Transaction> AddExpense(Transaction transaction)
+        public async Task<Transaction> AddExpense(Transaction pTransaction)
         {
             try
             {
-                transaction.Amount = transaction.Amount * (-1);
-                transaction.DateTime = DateTime.UtcNow.AddHours(-3);
+                //transaction.Amount = transaction.Amount * (-1); //TODO: cambia el valor original
+
+                var transaction = new Transaction() //en este caso mapeamos porque necesito cambiar el valor de una propiedad
+                {
+                    Amount = pTransaction.Amount * (-1),
+                    DateTime = DateTime.UtcNow.AddHours(-3),
+                    BusinessUnitId = pTransaction.BusinessUnitId,
+                    CashRegisterId = pTransaction.CashRegisterId,
+                    //UserId = pTransaction.UserId,
+                    Description = pTransaction.Description,
+
+                };
+
                 var result = await _repository.Create(transaction);
-                return result;
+                return result; //TODO: para que devolver un objeto si no se necesita? consume memoria
             }
             catch (Exception)
             {
@@ -42,7 +53,8 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                transaction.DateTime = DateTime.UtcNow.AddHours(-3);
+                // en este caso no mapeamos porque no cambiamos ningun valor de propiedad
+                transaction.DateTime = DateTime.UtcNow.AddHours(-3); //solo se le agrega la fecha
                 var result = await _repository.Create(transaction);
                 return result;
             }
@@ -70,7 +82,7 @@ namespace PointOfSale.BL.Services
                     list = list.Where(t => t.Description != null && t.Description.ToLower().Contains(description.ToLower()));
                 }
 
-                
+
                 return list;
             }
             catch (Exception)

@@ -11,14 +11,15 @@ namespace PointOfSale.Models
     {
         public int Id { get; set; }
         public int BusinessUnitId { get; set; }
-        [Required(ErrorMessage = "Por favor, seleccione una Caja.")]
+        [Required(ErrorMessage = "Por favor, indique una Caja.")]
         public int? CashRegisterId { get; set; }
         public CashRegister? CashRegister { get; set; }
         public BusinessUnit? BusinessUnit { get; set; }
 
         public DateTime? DateTime { get; set; }
-        [Required(ErrorMessage = "Por favor, seleccione una Descripción.")]
+        [Required(ErrorMessage = "Por favor, escriba una Descripción.")]
         public string? Description { get; set; }
+        [Required(ErrorMessage = "El monto del movimiento no puede ser nulo.")]
         public decimal? Amount { get; set; }
         public bool? IsExpense { get; set; }
 

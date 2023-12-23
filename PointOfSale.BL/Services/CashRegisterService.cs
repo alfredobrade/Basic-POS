@@ -42,9 +42,10 @@ namespace PointOfSale.BL.Services
         {
             try
             {
+                // traemos la cashregister de ese businessunit pero solo la de efectivo
                 var cashRegister = await _repository.Get(cr => cr.BusinessUnitId == BusinessUnitId);
                 
-                cashRegister.Amount -= price;
+                cashRegister.Amount -= price; //TODO: el precio entra negativo porque transaction.amount ya viene negativo
                 await _repository.Edit(cashRegister);
                 return cashRegister;
             }

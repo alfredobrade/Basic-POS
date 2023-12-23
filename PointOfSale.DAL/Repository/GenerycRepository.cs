@@ -98,6 +98,7 @@ namespace PointOfSale.DAL.Repository
             try
             {
                 _context.Set<TEntity>().Update(entity); //TODO: tambien le hace _context.Update(entity); para que es el Set<TEntity> ????
+                //RESPUESTA: el set entity es porque elije la lista de ESA entidad del context. despues hace update de la entidad del parametro
                 await _context.SaveChangesAsync();
 
                 return true;

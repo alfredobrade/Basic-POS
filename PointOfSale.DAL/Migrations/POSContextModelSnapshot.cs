@@ -36,7 +36,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.BusinessUnit", b =>
@@ -53,7 +53,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BusinessUnits");
+                    b.ToTable("BusinessUnits", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.BusinessUnitRole", b =>
@@ -70,7 +70,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BusinessUnitRole");
+                    b.ToTable("BusinessUnitRole", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.CashRegister", b =>
@@ -92,7 +92,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CashRegisters");
+                    b.ToTable("CashRegisters", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Category", b =>
@@ -109,7 +109,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Customer", b =>
@@ -141,7 +141,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Invoice", b =>
@@ -173,7 +173,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.OperationType", b =>
@@ -190,7 +190,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OperationType");
+                    b.ToTable("OperationType", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.PayMethod", b =>
@@ -207,7 +207,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PayMethods");
+                    b.ToTable("PayMethods", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Product", b =>
@@ -276,7 +276,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("UOMId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.ProductSupplier", b =>
@@ -291,7 +291,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductSuppliers");
+                    b.ToTable("ProductSuppliers", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Purchase", b =>
@@ -312,7 +312,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Purchases");
+                    b.ToTable("Purchases", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.PurchaseProduct", b =>
@@ -327,7 +327,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("PurchaseProducts");
+                    b.ToTable("PurchaseProducts", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Role", b =>
@@ -350,7 +350,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Sale", b =>
@@ -399,7 +399,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("SalesPersonId");
 
-                    b.ToTable("Sales");
+                    b.ToTable("Sales", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.SaleProduct", b =>
@@ -426,7 +426,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("SaleProducts");
+                    b.ToTable("SaleProducts", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.SalesPerson", b =>
@@ -451,7 +451,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SalesPersons");
+                    b.ToTable("SalesPersons", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Supplier", b =>
@@ -483,7 +483,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supliers");
+                    b.ToTable("Supliers", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Tax", b =>
@@ -506,7 +506,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Taxes");
+                    b.ToTable("Taxes", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Transaction", b =>
@@ -549,7 +549,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("OperationTypeId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.UnitOfMeasure", b =>
@@ -566,7 +566,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitOfMeasure");
+                    b.ToTable("UnitOfMeasure", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.User", b =>
@@ -594,7 +594,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.UserBusinessUnit", b =>
@@ -617,7 +617,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserBusinessUnits");
+                    b.ToTable("UserBusinessUnits", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.UserRole", b =>
@@ -641,7 +641,7 @@ namespace PointOfSale.DAL.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UsersRoles");
+                    b.ToTable("UsersRoles", (string)null);
                 });
 
             modelBuilder.Entity("PointOfSale.Models.Product", b =>
