@@ -27,6 +27,7 @@ namespace DBScripts
                 _index = 0;
 
                 //procesos a realizar
+                UsersCount();
                 SalesDBUpdate();
 
 
@@ -40,11 +41,26 @@ namespace DBScripts
             }
         }
 
-
+        public int UsersCount() //le saque al async porque me tiraba error con el context.
+                                //chatgpt me dice que use un using con instancias distintas de conexion a context
+        {
+            try
+            {
+                //var list = _context.Users.ToList();
+                var num = _context.Users.Count();
+                Console.WriteLine($"Cantidad de usuarios {num}");
+                return num;
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
 
 
         //modificacion de Sales
-        public async Task SalesDBUpdate()
+        public void SalesDBUpdate()//le saque al async porque me tiraba error con el context.
+                                   //chatgpt me dice que use un using con instancias distintas de conexion a context
         {
             try
             {
@@ -69,7 +85,7 @@ namespace DBScripts
                     //}
 
                 }
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 
             }
             catch (Exception)
