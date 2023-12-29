@@ -162,7 +162,7 @@ namespace PointOfSale.BL.Services
         {
             try
             {
-                var saleList = await _repository.GetList(s => s.BusinessUnitId == BusinessUnitId && s.DateTime.HasValue);
+                var saleList = await _repository.GetList(s => s.BusinessUnitId == BusinessUnitId && s.DateTime.HasValue, "Customer");
 
                 if (date.HasValue && date.Value != DateTime.MinValue) saleList = saleList.Where(s => s.DateTime.Value.Date == date.Value.Date);
                 if (!String.IsNullOrEmpty(customer))
