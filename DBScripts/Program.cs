@@ -2,7 +2,10 @@
 
 using DBScripts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PointOfSale.DAL.Context;
+
+using Microsoft.Extensions.Configuration;
 
 Console.WriteLine("Hello, World!");
 //string n = Console.ReadLine();
@@ -21,8 +24,21 @@ Console.WriteLine("Hello, World!");
 
 
 // Configura las opciones de DbContext, reemplaza YourDbContextOptions con el tipo real
+//DbContextOptions<POSContext> dbContextOptions = new DbContextOptionsBuilder<POSContext>()
+//    .UseNpgsql("") // Reemplaza con tu cadena de conexión PostgreSQL
+//.Options;
+
+
+IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+string connectionString = configuration.GetConnectionString("DevConnection");
+
+// Ahora puedes utilizar la cadena de conexión
 DbContextOptions<POSContext> dbContextOptions = new DbContextOptionsBuilder<POSContext>()
-    .UseNpgsql("Server=bboawflhkcoz33rnv6js-postgresql.services.clever-cloud.com;Port=50013;Database=bboawflhkcoz33rnv6js;User Id=u0hjnypgj4c6muk7kf2n;Password=KqWZndvqFcwA7w4Th9fJ59cPRAjdyE;") // Reemplaza con tu cadena de conexión PostgreSQL
+    .UseNpgsql(connectionString)
     .Options;
 
 // Crea una instancia de POSContext pasando las opciones al constructor
