@@ -23,3 +23,8 @@
 /DBScripts/bin/Debug/net6.0
 /DBScripts/obj
 /DBScripts/appsettings.json
+/AdminDashboard/bin
+/AdminDashboard/obj/Debug
+/AdminDashboard/Web.config
+/AdminDashboard/Web.Debug.config
+/AdminDashboard/Web.Release.config
