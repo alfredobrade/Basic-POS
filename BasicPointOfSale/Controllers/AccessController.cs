@@ -87,5 +87,6 @@ namespace BasicPointOfSale.Controllers
             return RedirectToAction("Index", "Access");
         }
 
+   
     }
 }

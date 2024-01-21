@@ -44,6 +44,22 @@ namespace PointOfSale.BL.Services
                 throw;
             }
         }
+        public async Task<IEnumerable<Customer>> GetCustomersByName(int businessUnitId, string name)
+        {
+            try
+            {
+                var list = await GetCustomerList(businessUnitId);
+                var result = list.Where(c => c.Name.ToLower().Contains(name.ToLower())); //TODO: busca por contains
+                //TODO: hay que hacer una view donde busca el customer y despues filtra por ese
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public async Task<Customer> CreateCustomer(Customer customer)
         {

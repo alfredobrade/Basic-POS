@@ -9,7 +9,7 @@ namespace PointOfSale.BL.IServices
 {
     public interface ITransactionService
     {
-        Task<Transaction> AddExpense(Transaction transaction);
+        Task<Transaction> AddExpense(Transaction pTransaction);
         Task<Transaction> AddIncome(Transaction transaction);
         Task<IEnumerable<Transaction>> TransactionHistory(int BusinessUnitId, DateTime? date, string? description);
         Task<Transaction> GetTransaction(int id);

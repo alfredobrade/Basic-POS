@@ -40,10 +40,10 @@ namespace BasicPointOfSale.Controllers
 
                 //TODO: Falta la lista de nombres de los clientes
                 //var customers = _customerService.GetCustomerList((int)businessUnitId);
-                foreach ( var item in sales)
-                {
-                    item.Customer = await _customerService.GetCustomer((int)item.CustomerId);
-                }
+                //foreach ( var item in sales)//esto ya no debería ser necesario
+                //{
+                //    item.Customer = await _customerService.GetCustomer((int)item.CustomerId);
+                //}
 
                 var model = new SaleListVM()
                 {
@@ -81,26 +81,7 @@ namespace BasicPointOfSale.Controllers
             }
         }
 
-        // GET: SaleHistoryController/Create
-        public async Task<ActionResult> Create()
-        {
-            return View();
-        }
-
-        // POST: SaleHistoryController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
 
         // GET: SaleHistoryController/Edit/5
         public async Task<ActionResult> Edit(int id)
