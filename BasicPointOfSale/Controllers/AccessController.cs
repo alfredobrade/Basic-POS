@@ -6,6 +6,7 @@ using System.Security.Claims;
 using PointOfSale.BL.IServices;
 using BasicPointOfSale.Models;
 using Microsoft.AspNetCore.Identity;
+//using System.Web.Mvc;
 
 namespace BasicPointOfSale.Controllers
 {
@@ -57,7 +58,7 @@ namespace BasicPointOfSale.Controllers
                     {
                         claims.Add(new Claim(ClaimTypes.Role, rol.Role.Name));
                     }
-                    
+
 
                     //TODO: logica para verificar si el usuario esta activo
 
@@ -87,6 +88,14 @@ namespace BasicPointOfSale.Controllers
             return RedirectToAction("Index", "Access");
         }
 
+        public IActionResult HoraServidor()
+        {
+            // Obtener la hora actual del servidor
+            var serverTime = DateTime.Now.AddHours(-3).ToString("HH:mm:ss");
+
+            // Devolver la hora actual como JSON
+            return Json(serverTime); // , JsonRequestBehavior.AllowGet); eso era necesario en versiones anteriores
+        }
    
     }
 }

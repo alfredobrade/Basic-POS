@@ -11,16 +11,55 @@
 </head>
 <body>
     <!-- <div class="container"> -->
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     <!-- </div> -->
 
     <footer class="border-top footer text-muted">
         <div class="container">
             2023 - Develop By YakaTec - Alfredo Brade - @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            <p>Hora: <span id="hora"></span></p>
+            <p>Hora Arg: <span id="hora2"></span></p>
+
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                var fecha = new Date();
+                var hora = fecha.getHours();
+                var minutos = fecha.getMinutes();
+                var segundos = fecha.getSeconds();
+                var horaCompleta = hora + ":" + minutos + ":" + segundos;
+                $("#hora").text(horaCompleta);
+
+            }, 1000);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Función para obtener la hora del servidor
+            function getServerTime() {
+                $.ajax({
+                    url: '@Url.Action("HoraServidor", "Access")', // URL de la acción del controlador
+                    type: 'GET',
+                    success: function (data) {
+                        // Actualizar el contenido del elemento con la hora del servidor
+                        $('#hora2').text(data);
+                    },
+                    error: function () {
+                        console.log('Error al obtener la hora del servidor.');
+                    }
+                });
+            }
+
+            // Llamar a la función getServerTime cada segundo
+            setInterval(getServerTime, 1000);
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
