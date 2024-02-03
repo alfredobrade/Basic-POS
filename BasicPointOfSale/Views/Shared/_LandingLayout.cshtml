@@ -41,13 +41,11 @@
     </script>
     <script>
         $(document).ready(function () {
-            // Función para obtener la hora del servidor
             function getServerTime() {
                 $.ajax({
                     url: '@Url.Action("HoraServidor", "Access")', // URL de la acción del controlador
                     type: 'GET',
                     success: function (data) {
-                        // Actualizar el contenido del elemento con la hora del servidor
                         $('#hora2').text(data);
                     },
                     error: function () {
@@ -55,12 +53,12 @@
                     }
                 });
             }
-
-            // Llamar a la función getServerTime cada segundo
             setInterval(getServerTime, 1000);
         });
     </script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
